@@ -1,0 +1,32 @@
+extends ../shared/template
+
+block content
+  #map-canvas
+  #pano
+
+  a#make-guess(href='#') Make Guess
+
+  #dialog
+    #map-modal
+    .points
+
+  #game-over
+    #map-game
+    //- form#register-form
+    //-   input(type='email', name='email', placeHolder='Email')
+    //-   input(type='password', name='password', placeHolder='Password')
+    //-   button#register Register
+    #user
+    if(user)
+      h4= user.email
+      #userId(data-id= '#{user._id}' )
+      button#save-game Save Game
+    if(!user)
+      form#login-form
+        input(type='email', name='email', placeHolder='Email')
+        input(type='password', name='password', placeHolder='Password')
+        button#login Login
+      .points
+
+
+block scripts
