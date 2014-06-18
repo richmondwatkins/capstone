@@ -3,9 +3,6 @@
 (function(){
   'use strict';
 
-  var leaderMaps;
-
-
   $(document).ready(init);
 
   function init(){
@@ -16,50 +13,108 @@
 
 function showMaps(){
   var maps = $('.leader-maps');
-  var allGames = [];
-  for(var i = 0; i< maps.length; i++){
-    var game = {};
-    game.guessLoc = $(maps[i]).attr('data-guess');
-    game.actualLoc = $(maps[i]).attr('data-actual');
-    game.id = $(maps[i]).attr('id');
-    allGames.push(game);
-  }
+  var coords = $('.coords');
+  var coordsArray = [];
+    for(var i = 0; i< coords.length; i++){
+      var gameObj = {};
+      gameObj.guessLoc = $(coords[i]).attr('data-guess');
+      gameObj.actualLoc = $(coords[i]).attr('data-actual');
+      coordsArray.push(gameObj);
+    }
 
-  allGames.forEach(g=>{
+    var newArray = [];
+    for (var f=0; f<coordsArray.length; f+=5) {
+    var smallarray = coordsArray.slice(f,f+5);
+      newArray.push(smallarray);
+    }
+
+    var gamesArray = [];
+    for(var j = 0; j< maps.length; j++){
+      var game = {};
+      game.id = $(maps[j]).attr('id');
+      gamesArray.push(game);
+    }
+
+
+    var allGameObjs = [];
+    for(var k = 0; k < newArray.length; k++){
+      var indGameObj = {};
+      indGameObj.coords = newArray[k];
+      indGameObj.id = gamesArray[k].id;
+      allGameObjs.push(indGameObj);
+    }
+
+  console.log(allGameObjs);
+
+  var leaderMaps;
+
+  allGameObjs.forEach(m=>{
     var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
     var mapOptions = {
       zoom: 1,
       center: myLatlng
     };
-      g.guessLoc = g.guessLoc.toString();
-      g.actualLoc = g.actualLoc.toString();
+      leaderMaps = m.id;
+       leaderMaps = new google.maps.Map(document.getElementById(m.id), mapOptions);
 
-    // var guessLatlng = new google.maps.LatLng(g.guessLoc);
-        g.guessLoc = g.guessLoc.replace('(', '');
-        g.guessLoc = g.guessLoc.replace(')', '').split(',');
+       m.coords.forEach(g=>{
+         console.log(g);
 
-        g.actualLoc = g.actualLoc.replace('(', '');
-        g.actualLoc = g.actualLoc.replace(')', '').split(',');
-        console.log(g.actualLoc);
+         g.guessLoc = g.guessLoc.toString();
+         g.actualLoc = g.actualLoc.toString();
 
-        var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
-        var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
+           g.guessLoc = g.guessLoc.replace('(', '');
+           g.guessLoc = g.guessLoc.replace(')', '').split(',');
 
-        leaderMaps = new google.maps.Map(document.getElementById(g.id), mapOptions);
-        console.log(guessLoc);
-        // var actualLoc = new google.maps.LatLng(g.actualLoc);
-        var markers = new google.maps.Marker({
-          position: guessLoc,
-          map: leaderMaps
-        });
-        drawLine(guessLoc, actualLoc, leaderMaps);
+           g.actualLoc = g.actualLoc.replace('(', '');
+           g.actualLoc = g.actualLoc.replace(')', '').split(',');
+
+           var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
+           var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
+
+           var markers = new google.maps.Marker({
+             position: guessLoc,
+             map: leaderMaps
+           });
+           var points = [guessLoc, actualLoc];
+
+           drawLine(points, leaderMaps);
+       });
+
   });
+
+  // allGameObjs.forEach(a=>{
+  //   a.coords.forEach(g=>{
+  //     console.log(g);
+  //
+  //     g.guessLoc = g.guessLoc.toString();
+  //     g.actualLoc = g.actualLoc.toString();
+  //
+  //       g.guessLoc = g.guessLoc.replace('(', '');
+  //       g.guessLoc = g.guessLoc.replace(')', '').split(',');
+  //
+  //       g.actualLoc = g.actualLoc.replace('(', '');
+  //       g.actualLoc = g.actualLoc.replace(')', '').split(',');
+  //
+  //       var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
+  //       var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
+  //
+  //       var markers = new google.maps.Marker({
+  //         position: guessLoc,
+  //         map: leaderMaps
+  //       });
+  //       var points = [guessLoc, actualLoc];
+  //
+  //       drawLine(points, leaderMaps);
+  //   });
+  //
+  // });
 
 }
 
-function drawLine(guessLoc, actualLoc, selectedMap){
+function drawLine(points, selectedMap){
   var flightPath = new google.maps.Polyline({
-    path: [guessLoc, actualLoc],
+    path: points,
     geodesic: true,
     strokeColor: '#FF0000',
     strokeOpacity: 1.0,

@@ -24,13 +24,14 @@
 
   function saveGame(){
     var gameData = {};
-    gameData.score = totalPoints;
-
+        gameData.coords = [];
+        gameData.score = totalPoints;
     gameLocations.forEach(l=>{
-      gameData.guessLoc = l.coords[0].toString();
-      gameData.actualLoc = l.coords[1].toString();
+      var coords = {};
+      coords.guessLoc = l.coords[0].toString();
+      coords.actualLoc = l.coords[1].toString();
+      gameData.coords.push(coords);
     });
-    console.log(gameData);
     var userId = $('#username').attr('data-username');
     ajax(`/save/${userId}`, 'POST', gameData, null);
       window.location.href = '/';
@@ -66,7 +67,7 @@
     gameLocations.push(roundRes);
     round += 1;
 
-    if(round >= 1){
+    if(round >= 5){
       $( '#game-over' ).dialog('open');
       initModalMap(coords, distance);
       gameOver(gameLocations);
@@ -154,7 +155,7 @@
  // ----- Point calculation TODO Figure out a point system ------
    var totalPoints = 0;
   function calcPoints(dist){
-    if(dist <= 1,245.1){
+    if(dist <= 1245.1){
       totalPoints += 100;
     }
     if(dist >1245.1 && dist < 2490.2){
@@ -184,7 +185,6 @@
     if(dist >11205.9 && dist < 12451){
       totalPoints += 10;
     }
-    console.log(dist);
     $('.distance').text(dist);
     $('.points').text(totalPoints);
   }

@@ -13,11 +13,6 @@ block content
 
   #game-over
     #map-game
-    form#register-form
-      input(type='email', name='email', placeHolder='Email')
-      input(type='text', name='username', placeHolder='Username')
-      input(type='password', name='password', placeHolder='Password')
-      button#register Register
     #user
     if(user)
       h4= user.email
@@ -28,6 +23,11 @@ block content
         input(type='email', name='email', placeHolder='Email')
         input(type='password', name='password', placeHolder='Password')
         button#login Login
+      form#register-form
+        input(type='email', name='email', placeHolder='Email')
+        input(type='text', name='username', placeHolder='Username')
+        input(type='password', name='password', placeHolder='Password')
+        button#register Register
     .distance
     .points
 

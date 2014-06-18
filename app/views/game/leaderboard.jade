@@ -6,7 +6,10 @@ block content
     each game in games
       h3.game= game.score
       a(href='/users/#{game.user}')= game.user
-      div(class='leader-maps', id='#{game._id}', data-guess='#{game.guessLoc}', data-actual='#{game.actualLoc}')
+      div(class='leader-maps', id='#{game._id}')
+      each coord in game.coords
+        div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
+
 
 block scripts
   script(src='/js/es6/compiled/leaderboard.js')
