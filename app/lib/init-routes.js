@@ -16,17 +16,28 @@ module.exports = (req, res, next)=>{
 function load(app, fn){
   var home = traceur.require(__dirname + '/../routes/home.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
+  var games = traceur.require(__dirname + '/../routes/games.js');
+
 
   app.all('*', users.lookup);
   app.get('/', dbg, home.index);
 
 
   // app.get('/login', dbg, users.new);
-  app.post('/users', dbg, users.create);
-  app.post('/login', dbg, users.login);
+  app.post('/register', dbg, users.gameCreate);
+  app.post('/home/register', dbg, users.homeCreate);
+
+  app.post('/login', dbg, users.gameLogin);
+  app.post('/home/login', dbg, users.homeLogin);
+
   app.post('/logout', dbg, users.logout);
 
-  app.post('/save/:userId', dbg, users.saveGame);
+  app.get('/play', dbg, games.play);
+  app.post('/save/:userId', dbg, games.save);
+
+  app.get('/leaderboard', dbg, games.leaderboard);
+
+  app.get('/users/:username', dbg, users.show);
 
   app.all('*', users.bounce);
 

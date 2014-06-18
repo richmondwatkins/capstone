@@ -31,8 +31,10 @@
       gameData.actualLoc = l.coords[1].toString();
     });
     console.log(gameData);
-    var userId = $('#userId').attr('data-id');
+    var userId = $('#username').attr('data-username');
     ajax(`/save/${userId}`, 'POST', gameData, null);
+      window.location.href = '/';
+
   }
 
   function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
@@ -46,6 +48,9 @@
     var distance = (google.maps.geometry.spherical.computeDistanceBetween(marker.position, streetViewLoc)).toFixed(2);
     var coordsArray = [];
     coordsArray.push(marker.position, streetViewLoc);
+
+    distance = distance / 5280;
+
     roundResults(coordsArray, distance);
 
     e.preventDefault();
@@ -149,8 +154,38 @@
  // ----- Point calculation TODO Figure out a point system ------
    var totalPoints = 0;
   function calcPoints(dist){
-    var points = ((dist/12451) * 100).toFixed(0) *1;
-    totalPoints += points;
+    if(dist <= 1,245.1){
+      totalPoints += 100;
+    }
+    if(dist >1245.1 && dist < 2490.2){
+      totalPoints += 90;
+    }
+    if(dist >2490.2 && dist < 3735.3){
+      totalPoints += 80;
+    }
+    if(dist >3735.3 && dist < 4980.4){
+      totalPoints += 70;
+    }
+    if(dist >4980.4 && dist < 6225.5){
+      totalPoints += 60;
+    }
+    if(dist >6225.5 && dist < 7470.6){
+      totalPoints += 50;
+    }
+    if(dist >7470.6 && dist < 8715.7){
+      totalPoints += 40;
+    }
+    if(dist >8715.7 && dist < 9960.8){
+      totalPoints += 30;
+    }
+    if(dist >9960.8 && dist < 11205.9){
+      totalPoints += 20;
+    }
+    if(dist >11205.9 && dist < 12451){
+      totalPoints += 10;
+    }
+    console.log(dist);
+    $('.distance').text(dist);
     $('.points').text(totalPoints);
   }
 

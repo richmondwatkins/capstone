@@ -40,6 +40,14 @@ class Base{
       fn(objs);
     });
   }
+
+  static findAllGames(collection, model, fn){
+    collection.find().sort( { score : -1 } ).toArray((e,objs)=>{
+      objs = objs.map(o=>_.create(model.prototype, o));
+      fn(objs);
+    });
+  }
 }
+
 
 module.exports = Base;

@@ -44,7 +44,8 @@
     "supertest":            "*",
     "coveralls":            "*",
     "mocha-lcov-reporter":  "*",
-    "blanket":              "*"
+    "blanket":              "*",
+    "passport":             "*"
   },
   "config": {
     "blanket": {

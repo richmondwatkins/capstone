@@ -8,8 +8,16 @@ html
 
 
   body
+    #dashboard
+      if(user)
+        h3= user.email
     form(action='/logout', method='POST')
       button#logout Logout
+
+    a(href='/') Home
+    a(href='/play') Game
+    a(href='/leaderboard') Leaderboard
+
     block content
 
     script(src='/js/vendor/jquery-2.1.1.js')
@@ -20,8 +28,7 @@ html
     script(src='/js/vendor/traceur.js')
     script(src='/socket.io/socket.io.js')
     script(src='/js/es5/main.js')
-    script(src='/js/es6/compiled/main.js')
-    script(src='/js/es6/compiled/sockets.js')
     script(src='/js/es6/compiled/users.js')
+    script(src='/js/es6/compiled/sockets.js')
 
     block scripts

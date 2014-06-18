@@ -10,6 +10,8 @@
 
   function initialize(){
     $('body').on('click', '#login', loginUser);
+    $('body').on('click', '#register', registerUser);
+
   }
 
   function loginUser(e){
@@ -22,7 +24,18 @@
     });
 
     e.preventDefault();
+  }
 
+  function registerUser(e){
+    var userInfo = $('#register-form').serialize();
+    console.log(userInfo);
+    ajax('/register', 'POST', userInfo, res=>{
+      console.log(res);
+      // $('#user').empty().append(res);
+      $('#dashboard').empty().append(res);
+    });
+
+    e.preventDefault();
   }
 
 

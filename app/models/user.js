@@ -6,11 +6,12 @@ var Base = traceur.require(__dirname + '/base.js');
 
 class User{
   static create(obj, fn){
-    userCollection.findOne({email:obj.email}, (e,u)=>{
+    userCollection.findOne({email:obj.email, username:obj.username}, (e,u)=>{
       if(!u){
         var user = new User();
         user._id = Mongo.ObjectID(obj._id);
         user.email = obj.email;
+        user.username = obj.username;
         user.password = bcrypt.hashSync(obj.password, 8);
         userCollection.save(user, ()=>fn(user));
       }else{
@@ -37,6 +38,17 @@ class User{
   static findById(id, fn){
     Base.findById(id, userCollection, User, fn);
   }
+
+  static findByUsername(username, fn){
+    userCollection.findOne({username:username}, (err, user)=>{
+      if(user){
+        fn(user);
+      }else{
+        fn(null);
+      }
+    });
+  }
+
 }
 
 module.exports = User;

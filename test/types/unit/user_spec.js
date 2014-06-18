@@ -31,7 +31,7 @@ describe('User', function(){
 
   describe('.create', function(){
     it('should successfully create a user', function(done){
-      User.create({email:'bob@aol.com', password:'1234'}, function(u){
+      User.create({email:'bob@aol.com', username:'bobby', password:'1234'}, function(u){
         expect(u).to.be.ok;
         expect(u).to.be.an.instanceof(User);
         expect(u._id).to.be.an.instanceof(Mongo.ObjectID);

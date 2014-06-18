@@ -1,0 +1,15 @@
+extends ../shared/template
+
+block content
+  h3 Leaderboard
+  #all-games
+    each game in games
+      h3.game= game.score
+      a(href='/users/#{game.user}')= game.user
+      #guessLoc(data-coords='#{game.guessLoc}')
+      #actualLoc(data-coords='#{game.actualLoc}')
+      #gameId(data-id='#game._id')
+      div(class='leader-maps', id='#{game._id}')
+
+block scripts
+  script(src='/js/es6/compiled/leaderboard.js')

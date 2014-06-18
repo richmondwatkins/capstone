@@ -2,31 +2,71 @@
 
 var traceur = require('traceur');
 var User = traceur.require(__dirname + '/../models/user.js');
+var Game = traceur.require(__dirname + '/../models/game.js');
+
 
 exports.new = (req, res)=>{
   res.render('users/new', {title: 'Login'});
 };
 
-exports.create = (req, res)=>{
+exports.homeCreate = (req, res)=>{
+  console.log('inside routeeee');
+  console.log(req.body);
   User.create(req.body, user=>{
+    console.log(user);
     if(user){
       req.session.userId = user._id;
       res.redirect('/');
     }else{
-      res.redirect('/login');
+      res.redirect('/');
     }
   });
 };
 
-exports.login = (req, res)=>{
+exports.gameCreate = (req, res)=>{
+  console.log('inside routeeee');
+  console.log(req.body);
+  User.create(req.body, user=>{
+    console.log(user);
+    if(user){
+      req.session.userId = user._id;
+      res.render('users/gameover', {user: user});
+    }else{
+      res.redirect('/');
+    }
+  });
+};
+
+exports.gameLogin = (req, res)=>{
+  User.login(req.body, user=>{
+    if(user){
+      req.session.userId = user._id;
+      console.log('in game login');
+      console.log(user);
+      res.render('users/gameover', {user: user});
+    }else{
+      res.redirect('/');
+    }
+  });
+};
+
+exports.homeLogin = (req, res)=>{
   User.login(req.body, user=>{
     if(user){
       req.session.userId = user._id;
       console.log(user);
-      res.render('users/gameover', {user: user});
+      res.redirect('/');
     }else{
-      res.redirect('/login');
+      res.redirect('/');
     }
+  });
+};
+
+exports.show = (req, res)=>{
+  User.findByUsername(req.params.username, user=>{
+    Game.findByUsername(user.username, games=>{
+      res.render('users/show', {title: `${user.username} Profile`,user:user, games: games});
+    });
   });
 };
 

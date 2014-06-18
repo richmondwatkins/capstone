@@ -1,0 +1,10 @@
+extends ../shared/template
+
+block content
+
+  h3= user.username
+
+  each game in games
+    h3= game.score
+    div(id='#{game._id}')
+      p test
