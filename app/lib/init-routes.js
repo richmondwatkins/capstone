@@ -14,10 +14,19 @@ module.exports = (req, res, next)=>{
 };
 
 function load(app, fn){
+  // var passport = require('passport');
+  // require('../config/passport')(passport);
+
   var home = traceur.require(__dirname + '/../routes/home.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
   var games = traceur.require(__dirname + '/../routes/games.js');
-
+  // var passport = traceur.require(__dirname + '/../routes/passport.js');
+  // function isLoggedIn(req, res, next) {
+  //   if (req.isAuthenticated()){
+  //     return next();
+  //   }
+  //   res.redirect('/passport');
+  // }
 
   app.all('*', users.lookup);
   app.get('/', dbg, home.index);
@@ -39,9 +48,27 @@ function load(app, fn){
 
   app.get('/users/:username', dbg, users.show);
 
+
+  // app.get('/passport', dbg, passport.index);
+  // app.get('/passport/profile', isLoggedIn, passport.profile);
+  //
+  // app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
+  // app.get('/auth/facebook/callback',
+  //   passport.authenticate('facebook', {
+  //     successRedirect : '/passport/profile',
+  //     failureRedirect : '/passport'
+  //   }));
+  //
+  // app.get('/passport/logout', function(req, res) {
+  //   req.logout();
+  //   res.redirect('/passport');
+  // });
+
   app.all('*', users.bounce);
 
 
+
   console.log('Routes Loaded');
+
   fn();
 }
