@@ -13,11 +13,10 @@ html
     |var js, fjs = d.getElementsByTagName(s)[0];
     |if (d.getElementById(id)) return;
     |js = d.createElement(s); js.id = id;
-    |js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    |js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1435231173405378&version=v2.0";
     |fjs.parentNode.insertBefore(js, fjs);
     |}(document, 'script', 'facebook-jssdk'));</script>
-    .fb-share-button(data-href='geofinder.richmondwatkins.com', og:image='/img/test.jpg', og:description='This is the desc',
- data-type='button_count')
+    .fb-share-button(data-href='lms.richmondwatkins.com', data-type='button_count')
 
 
     #dashboard
@@ -29,7 +28,7 @@ html
       a(href='/') Home
       a(href='/play') Game
       a(href='/leaderboard') Leaderboard
-      if(user._id)
+      if(user)
         a(href='/users/#{user.username}') My Profile
     block content
 
