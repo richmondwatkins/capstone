@@ -4,6 +4,7 @@ html
     meta(charset='utf-8')
     title= title
     link(href='/less/app.css', rel='stylesheet')
+    link(rel='stylesheet', href='//code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css')
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyArPvnhx4BUiKnrYG6cyNX-YZL21LruNAQ&sensor=false')
 
 
@@ -32,8 +33,10 @@ html
         a(href='/users/#{user.username}') My Profile
     block content
 
+
     script(src='/js/vendor/jquery-2.1.1.js')
     script(src='/js/vendor/jquery-ui-1.10.4.custom.js')
+    script(src='/js/vendor/jquery.magnific-popup.js')
     script(src='/js/vendor/lodash-2.4.1.js')
     script(src='/js/vendor/moment-2.6.0.js')
     script(src='/js/vendor/chance.js')

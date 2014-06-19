@@ -5,6 +5,17 @@ html, body {
 #map-canvas {
   height: 300px;
   width: 400px;
+  z-index: 2;
+  opacity: 0.5;
+}
+
+#make-guess {
+  color: black;
+}
+
+
+#map-canvas:hover {
+  opacity: 1;
 }
 
 .leader-maps{
@@ -13,21 +24,19 @@ html, body {
 }
 
 #pano {
-position: absolute;
-left: 410px;
 top: 8px;
-width: 400px;
-height: 300px;
+width: 100%;
+height: 100%;
 }
 
 #map-modal, #map-game {
   height: 300px;
-  width: 400px;
+  width: 100%;
 }
 
 
 
-
+.ui-dialog { position: absolute;}
 .no-close .ui-dialog-titlebar-close {
   display: none;
 }

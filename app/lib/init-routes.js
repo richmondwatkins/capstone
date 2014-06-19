@@ -4,6 +4,7 @@ var traceur = require('traceur');
 var dbg = traceur.require(__dirname + '/route-debugger.js');
 var initialized = false;
 
+
 module.exports = (req, res, next)=>{
   if(!initialized){
     initialized = true;
@@ -39,6 +40,7 @@ function load(app, fn){
   app.get('/leaderboard', dbg, games.leaderboard);
 
   app.get('/users/:username', dbg, users.show);
+
 
 
 

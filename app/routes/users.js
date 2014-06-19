@@ -45,7 +45,7 @@ exports.gameLogin = (req, res)=>{
       console.log(user);
       res.render('users/gameover', {user: user});
     }else{
-      res.redirect('/');
+      res.redirect('/play');
     }
   });
 };

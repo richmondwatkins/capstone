@@ -83,8 +83,9 @@
 
   function initModalMap(coords, distance){
     var mapOptions = {
-      zoom: 1,
-      center: coords[1]
+      zoom: 2,
+      center: coords[1],
+      mapTypeId: google.maps.MapTypeId.SATELLITE
     };
 
       modalMap = new google.maps.Map(document.getElementById('map-modal'), mapOptions);
@@ -100,7 +101,7 @@
   function drawLine(points, selectedMap){
    var flightPath = new google.maps.Polyline({
     path: points,
-    geodesic: true,
+    geodesic: false,
     strokeColor: '#FF0000',
     strokeOpacity: 1.0,
     strokeWeight: 2
@@ -196,7 +197,8 @@
     var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
     var mapOptions = {
       zoom: 1,
-      center: myLatlng
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.SATELLITE
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     placeMarker();
@@ -217,6 +219,9 @@
          addressControl: false,
          linksControl: false,
          panControl: false,
+         zoomControlOptions: {
+           position: google.maps.ControlPosition.TOP_RIGHT
+         },
          pov: {
            heading: 34,
            pitch: 10
@@ -235,11 +240,13 @@ function initDialogs(){
   $( '#dialog' ).dialog({
     dialogClass: 'no-close',
     autoOpen: false,
-    height: 600,
-    width: 600,
+    modal: true,
+    height: 'auto',
+    maxWidth: 100,
+    width: 'auto',
     buttons: [
               {
-                text: 'OK',
+                text: 'Next Round',
                 click: function() {
                   $( this ).dialog( 'close' );
                 }
@@ -251,7 +258,7 @@ function initDialogs(){
     dialogClass: 'no-close',
     autoOpen: false,
     height: 600,
-    width: 600,
+    width: 1500,
     buttons: [
               {
                 text: 'OK',
