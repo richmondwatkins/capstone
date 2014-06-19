@@ -57,59 +57,30 @@ function showMaps(){
       leaderMaps = m.id;
        leaderMaps = new google.maps.Map(document.getElementById(m.id), mapOptions);
 
-       m.coords.forEach(g=>{
-         console.log(g);
+     m.coords.forEach(g=>{
+       console.log(g);
 
-         g.guessLoc = g.guessLoc.toString();
-         g.actualLoc = g.actualLoc.toString();
+       g.guessLoc = g.guessLoc.toString();
+       g.actualLoc = g.actualLoc.toString();
 
-           g.guessLoc = g.guessLoc.replace('(', '');
-           g.guessLoc = g.guessLoc.replace(')', '').split(',');
+       g.guessLoc = g.guessLoc.replace('(', '');
+       g.guessLoc = g.guessLoc.replace(')', '').split(',');
 
-           g.actualLoc = g.actualLoc.replace('(', '');
-           g.actualLoc = g.actualLoc.replace(')', '').split(',');
+       g.actualLoc = g.actualLoc.replace('(', '');
+       g.actualLoc = g.actualLoc.replace(')', '').split(',');
 
-           var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
-           var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
+       var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
+       var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
 
-           var markers = new google.maps.Marker({
-             position: guessLoc,
-             map: leaderMaps
-           });
-           var points = [guessLoc, actualLoc];
-
-           drawLine(points, leaderMaps);
+       var markers = new google.maps.Marker({
+         position: guessLoc,
+         map: leaderMaps
        });
+       var points = [guessLoc, actualLoc];
 
+       drawLine(points, leaderMaps);
+     });
   });
-
-  // allGameObjs.forEach(a=>{
-  //   a.coords.forEach(g=>{
-  //     console.log(g);
-  //
-  //     g.guessLoc = g.guessLoc.toString();
-  //     g.actualLoc = g.actualLoc.toString();
-  //
-  //       g.guessLoc = g.guessLoc.replace('(', '');
-  //       g.guessLoc = g.guessLoc.replace(')', '').split(',');
-  //
-  //       g.actualLoc = g.actualLoc.replace('(', '');
-  //       g.actualLoc = g.actualLoc.replace(')', '').split(',');
-  //
-  //       var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
-  //       var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
-  //
-  //       var markers = new google.maps.Marker({
-  //         position: guessLoc,
-  //         map: leaderMaps
-  //       });
-  //       var points = [guessLoc, actualLoc];
-  //
-  //       drawLine(points, leaderMaps);
-  //   });
-  //
-  // });
-
 }
 
 function drawLine(points, selectedMap){

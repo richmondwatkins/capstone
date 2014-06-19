@@ -39,10 +39,12 @@
   }
 
 
-
   function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
   $.ajax({url:url, type:type, dataType:dataType, data:data, success:success});
 }
+
+
+  
 
 
 })();

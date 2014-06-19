@@ -2,9 +2,16 @@ extends ../shared/template
 
 block content
 
-  h3= user.username
+  h3= owner.username
 
   each game in games
-    h3= game.score
-    div(id='#{game._id}')
-      p test
+    h3.game= game.score
+    a(href='/owners/#{game.owner}')= game.owner
+    div(class='leader-maps', id='#{game._id}')
+    each coord in game.coords
+      div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
+
+
+
+block scripts
+  script(src='/js/es6/compiled/mapsindex.js')

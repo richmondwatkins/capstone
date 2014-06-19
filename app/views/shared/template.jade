@@ -5,19 +5,21 @@ html
     title= title
     link(href='/less/app.css', rel='stylesheet')
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyArPvnhx4BUiKnrYG6cyNX-YZL21LruNAQ&sensor=false')
-
-
+    
   body
+
+
     #dashboard
       if(user)
         h3= user.email
-    form(action='/logout', method='POST')
-      button#logout Logout
+      form(action='/logout', method='POST')
+        button#logout Logout
 
-    a(href='/') Home
-    a(href='/play') Game
-    a(href='/leaderboard') Leaderboard
-
+      a(href='/') Home
+      a(href='/play') Game
+      a(href='/leaderboard') Leaderboard
+      if(user._id)
+        a(href='/users/#{user.username}') My Profile
     block content
 
     script(src='/js/vendor/jquery-2.1.1.js')

@@ -63,9 +63,9 @@ exports.homeLogin = (req, res)=>{
 };
 
 exports.show = (req, res)=>{
-  User.findByUsername(req.params.username, user=>{
-    Game.findByUsername(user.username, games=>{
-      res.render('users/show', {title: `${user.username} Profile`,user:user, games: games});
+  User.findByUsername(req.params.username, owner=>{
+    Game.findByUsername(owner.username, games=>{
+      res.render('users/show', {title: `${owner.username} Profile`, owner:owner, games: games});
     });
   });
 };
