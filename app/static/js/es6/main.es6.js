@@ -17,6 +17,11 @@
     $('#make-guess').click(calcDist);
     $('#game-over').on('click', '#save-game', saveGame);
     initDialogs();
+    $('#test').click(test);
+  }
+
+  function test(){
+    $('#pano').empty();
   }
 
   //-----saves game
@@ -149,7 +154,8 @@
     markerName = new google.maps.Marker({
        position: markerCoords,
        map: map,
-       icon: icon
+       icon: icon,
+       animation: google.maps.Animation.DROP
      });
   }
 
@@ -278,7 +284,7 @@
         }
 
      } else{
-       randomStreetView();
+      randomStreetView();
      }
    });
   }
@@ -331,13 +337,14 @@ function initDialogs(){
   });
 }
 
+
+
 function saveFavorite (){
   var faveLoc = {};
   var username = $('#username').attr('data-username');
   faveLoc.coords = streetViewLoc.toString();
 
   ajax(`/save/location/${username}`, 'POST', faveLoc, null);
-  // $('#favorite > div > div').addClass('favorited');
   $('#favorite > div').css('border-color', 'yellow');
 }
 

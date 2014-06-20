@@ -7,9 +7,52 @@
 
   function init(){
     showMaps();
+    showFaveLocs();
   }
 
+var favLocMarkers = [];
 
+function showFaveLocs(){
+  var locations = $('.faveLocs');
+  var favLocsArray = [];
+    for(var i = 0; i< locations.length; i++){
+      var locsObj = {};
+      locsObj.coords = $(locations[i]).attr('data-coords');
+      favLocsArray.push(locsObj);
+    }
+
+    var centerLatLng = new google.maps.LatLng(37.71859,-16.875);
+
+    var mapOptions = {
+      zoom: 1,
+      center: centerLatLng,
+    };
+    var favLocMap;
+        favLocMap = new google.maps.Map(document.getElementById('favsMap'), mapOptions);
+
+    favLocsArray.forEach(c=>{
+      c.coords = c.coords.toString();
+
+      c.coords = c.coords.replace(')' , '').replace('(', '').split(',');
+      console.log(c.coords[0]);
+      var favCoords = new google.maps.LatLng(c.coords[0], c.coords[1]);
+
+
+      favLocMarkers = new google.maps.Marker({
+        position: favCoords,
+        map: favLocMap,
+        animation: google.maps.Animation.DROP
+      });
+
+
+      google.maps.event.addListener(favLocMarkers, 'click', function() {
+       console.log('make it');
+     });
+     
+    });
+
+
+}
 
 function showMaps(){
   var maps = $('.leader-maps');
@@ -44,21 +87,18 @@ function showMaps(){
       allGameObjs.push(indGameObj);
     }
 
-  console.log(allGameObjs);
-
   var leaderMaps;
 
   allGameObjs.forEach(m=>{
     var myLatlng = new google.maps.LatLng(50.71859,-16.875);
     var mapOptions = {
       zoom: 1,
-      center: myLatlng
+      center: myLatlng,
     };
       leaderMaps = m.id;
        leaderMaps = new google.maps.Map(document.getElementById(m.id), mapOptions);
 
      m.coords.forEach(g=>{
-       console.log(g);
 
        g.guessLoc = g.guessLoc.toString();
        g.actualLoc = g.actualLoc.toString();
@@ -77,14 +117,15 @@ function showMaps(){
        var guessMarkers = new google.maps.Marker({
          position: guessLoc,
          map: leaderMaps,
-         icon: guessIcon
+         icon: guessIcon,
+         animation: google.maps.Animation.DROP
        });
 
        var actualIcon = '/img/flag2.png';
        var actualMarkers = new google.maps.Marker({
          position: actualLoc,
          map: leaderMaps,
-         icon: actualIcon
+         icon: actualIcon,
        });
 
        var points = [guessLoc, actualLoc];

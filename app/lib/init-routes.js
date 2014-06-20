@@ -19,6 +19,8 @@ function load(app, fn){
   var home = traceur.require(__dirname + '/../routes/home.js');
   var users = traceur.require(__dirname + '/../routes/users.js');
   var games = traceur.require(__dirname + '/../routes/games.js');
+  var locations = traceur.require(__dirname + '/../routes/locations.js');
+
 
 
   app.all('*', users.lookup);
@@ -39,7 +41,7 @@ function load(app, fn){
 
   app.get('/leaderboard', dbg, games.leaderboard);
 
-  app.post('/save/location/:username', users.saveLoc);
+  app.post('/save/location/:username', locations.save);
   app.get('/users/:username', dbg, users.show);
 
 
