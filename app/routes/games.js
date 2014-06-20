@@ -11,7 +11,7 @@ exports.play = (req, res)=>{
 
 
 exports.save = (req, res)=>{
-  Game.create(req.body, req.params.userId, fn=>{
+  Game.create(req.body, req.params.username, fn=>{
     console.log(fn);
   });
 };

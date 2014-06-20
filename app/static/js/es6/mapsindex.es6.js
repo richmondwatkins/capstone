@@ -49,7 +49,7 @@ function showMaps(){
   var leaderMaps;
 
   allGameObjs.forEach(m=>{
-    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+    var myLatlng = new google.maps.LatLng(50.71859,-16.875);
     var mapOptions = {
       zoom: 1,
       center: myLatlng
@@ -72,10 +72,21 @@ function showMaps(){
        var guessLoc = new google.maps.LatLng(g.guessLoc[0], g.guessLoc[1]);
        var actualLoc = new google.maps.LatLng(g.actualLoc[0], g.actualLoc[1]);
 
-       var markers = new google.maps.Marker({
+       var guessIcon = '/img/pin.png';
+
+       var guessMarkers = new google.maps.Marker({
          position: guessLoc,
-         map: leaderMaps
+         map: leaderMaps,
+         icon: guessIcon
        });
+
+       var actualIcon = '/img/flag2.png';
+       var actualMarkers = new google.maps.Marker({
+         position: actualLoc,
+         map: leaderMaps,
+         icon: actualIcon
+       });
+
        var points = [guessLoc, actualLoc];
 
        drawLine(points, leaderMaps);
@@ -86,7 +97,7 @@ function showMaps(){
 function drawLine(points, selectedMap){
   var flightPath = new google.maps.Polyline({
     path: points,
-    geodesic: true,
+    geodesic: false,
     strokeColor: '#FF0000',
     strokeOpacity: 1.0,
     strokeWeight: 2

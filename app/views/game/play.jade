@@ -1,7 +1,6 @@
 extends ../shared/template
 
 block content
-  a#make-guess(href='#') Make Guess
   #pano
     #map-canvas
 
@@ -9,30 +8,33 @@ block content
     #map-modal
     .progress
     .distance
-    .points
+    .roundPoints
+    .gamePoints
 
   #game-over
     #map-game
     #user
-    if(user)
-      h4= user.email
-      #username(data-username= '#{user.username}' )
-      button#save-game Save Game
-    if(!user)
-      button#show-login Login
-      button#show-register Register
-      form#login-form
-        input.input(type='email', name='email', placeHolder='Email')
-        input.input(type='password', name='password', placeHolder='Password')
-        button#login Submit
-      form#register-form
-        input.input(type='email', name='email', placeHolder='Email')
-        input.input(type='text', name='username', placeHolder='Username')
-        input.input(type='password', name='password', placeHolder='Password')
-        button#register Submit
+      if(user)
+        h4= user.email
+        #username(data-username= '#{user.username}' )
+        button#save-game Save Game
+      if(!user)
+        p If you would like to save this game, login or register
+        button#show-login Login
+        button#show-register Register
+        form#login-form
+          input.input(type='email', name='email', placeHolder='Email')
+          input.input(type='password', name='password', placeHolder='Password')
+          button#login Submit
+        form#register-form
+          input.input(type='email', name='email', placeHolder='Email')
+          input.input(type='text', name='username', placeHolder='Username')
+          input.input(type='password', name='password', placeHolder='Password')
+          button#register Submit
     .progress
     .distance
-    .points
+    .roundPoints
+    .gamePoints
 
 
 block scripts

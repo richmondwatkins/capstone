@@ -8,7 +8,7 @@
   var map;
   var guessIcon = '/img/pin.png';
   var actualIcon = '/img/flag2.png';
-
+  var panorama;
   $(document).ready(init);
 
   function init(){
@@ -18,6 +18,8 @@
     $('#game-over').on('click', '#save-game', saveGame);
     initDialogs();
   }
+
+  //-----saves game
 
   function saveGame(){
     var gameData = {};
@@ -29,8 +31,8 @@
       coords.actualLoc = l.coords[1].toString();
       gameData.coords.push(coords);
     });
-    var userId = $('#username').attr('data-username');
-    ajax(`/save/${userId}`, 'POST', gameData, null);
+    var username = $('#username').attr('data-username');
+    ajax(`/save/${username}`, 'POST', gameData, null);
       window.location.href = '/leaderboard';
 
   }
@@ -47,7 +49,7 @@
     var coordsArray = [];
     coordsArray.push(marker.position, streetViewLoc);
 
-    distance = distance / 5280;
+    distance = (distance / 5280).toFixed(2);
 
     roundResults(coordsArray, distance);
 
@@ -55,6 +57,7 @@
   }
 
 //----keeps track of rounds shows results on map and ends game when when rounds hit specified amount
+
   var round = 0;
   var gameLocations = [];
   function roundResults(coords, distance){
@@ -64,7 +67,7 @@
     gameLocations.push(roundRes);
     round += 1;
 
-    if(round >= 3){
+    if(round >= 5){
       $( '#game-over' ).dialog('open');
       initModalMap(coords, distance);
       gameOver(gameLocations);
@@ -76,6 +79,8 @@
       clearMap();
     }
   }
+
+  //initalizes the modal after each round
 
 
   function initModalMap(coords, distance){
@@ -97,6 +102,8 @@
       calcPoints(distance);
   }
 
+  //draws line between guess and actual
+
   function drawLine(points, selectedMap){
    var flightPath = new google.maps.Polyline({
     path: points,
@@ -107,6 +114,8 @@
   });
     flightPath.setMap(selectedMap);
   }
+
+//---clears markers
 
   function clearMap(){
     marker.setMap(null);
@@ -134,6 +143,8 @@
        });
   }
 
+  // adds markers to game modal and round modal
+
   function addAllMarkers(markerName, markerCoords, icon, map){
     markerName = new google.maps.Marker({
        position: markerCoords,
@@ -142,8 +153,13 @@
      });
   }
 
+  // --- Places the marker for the uses guess -----
+
   function placeMarker() {
+
     google.maps.event.addListener(map, 'click', function (event) {
+      //initializes guess button on map
+      guessButton();
       var latitude = event.latLng.lat();
       var longitude = event.latLng.lng();
       let latLng = new google.maps.LatLng(latitude, longitude);
@@ -162,56 +178,74 @@
 
 
  // ----- Point calculation TODO Figure out a point system ------
+
    var totalPoints = 0;
   function calcPoints(dist){
+    var roundPoints = 0;
     if(dist <= 1245.1){
       totalPoints += 100;
+      roundPoints += 100;
     }
     if(dist >1245.1 && dist < 2490.2){
       totalPoints += 90;
+      roundPoints += 90;
     }
     if(dist >2490.2 && dist < 3735.3){
       totalPoints += 80;
+      roundPoints += 80;
     }
     if(dist >3735.3 && dist < 4980.4){
       totalPoints += 70;
+      roundPoints += 70;
     }
     if(dist >4980.4 && dist < 6225.5){
       totalPoints += 60;
+      roundPoints += 60;
     }
     if(dist >6225.5 && dist < 7470.6){
       totalPoints += 50;
+      roundPoints += 50;
     }
     if(dist >7470.6 && dist < 8715.7){
       totalPoints += 40;
+      roundPoints += 40;
     }
     if(dist >8715.7 && dist < 9960.8){
       totalPoints += 30;
+      roundPoints += 30;
     }
     if(dist >9960.8 && dist < 11205.9){
       totalPoints += 20;
+      roundPoints += 20;
     }
     if(dist >11205.9 && dist < 12451){
       totalPoints += 10;
+      roundPoints += 10;
     }
-    $('.distance').text(dist);
-    $('.points').text(totalPoints);
+    $('.distance').text(`${dist} miles from actual location`);
+    $('.roundPoints').text(`${roundPoints} points this round`);
+    $('.gamePoints').text(`${totalPoints} points this game`);
   }
 
 
 // -------init map for marker and coordinate testing -----------
 
   function initialize() {
+
     var myLatlng = new google.maps.LatLng(37.71859,-16.875);
     var mapOptions = {
       zoom: 1,
       center: myLatlng,
+      draggableCursor: 'crosshair',
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+
     placeMarker();
   }
 
+//---- The function name says it all ------
 
   function randomStreetView(){
     var geocoder = new google.maps.Geocoder();
@@ -235,7 +269,14 @@
            pitch: 10
          }
        };
-       var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+
+        panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+        var isUser = $('#username').attr('data-username');
+        if(isUser !== undefined){
+          favoriteButton();
+          $('body').on('click', '#favorite', saveFavorite);
+        }
+
      } else{
        randomStreetView();
      }
@@ -249,7 +290,7 @@ function initDialogs(){
   var windowHeight = $(window).height();
   var windowWidth= $(window).width();
 
-// $(document).width();
+
   $( '#dialog' ).dialog({
     dialogClass: 'no-close',
     autoOpen: false,
@@ -290,6 +331,90 @@ function initDialogs(){
   });
 }
 
+function saveFavorite (){
+  var faveLoc = {};
+  var username = $('#username').attr('data-username');
+  faveLoc.coords = streetViewLoc.toString();
 
+  ajax(`/save/location/${username}`, 'POST', faveLoc, null);
+  // $('#favorite > div > div').addClass('favorited');
+  $('#favorite > div').css('border-color', 'yellow');
+}
+
+function favoriteButton(){
+  // Create a div to hold the control.
+  var controlDiv = document.createElement('div');
+
+  // Set CSS styles for the DIV containing the control
+  // Setting padding to 5 px will offset the control
+  // from the edge of the map.
+  controlDiv.style.padding = '5px';
+  controlDiv.setAttribute('id', 'favorite');
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'green';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Favorite this location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '25px';
+  controlText.style.color = 'white';
+  controlText.style.paddingLeft = '15px';
+  controlText.style.paddingRight = '15px';
+  controlText.innerHTML = '<strong>☆</strong>';
+  controlUI.appendChild(controlText);
+
+  controlDiv.index = 1;
+  panorama.controls[google.maps.ControlPosition.RIGHT_CENTER].push(controlDiv);
+
+}
+
+//----adds the make guess button onto map
+
+function guessButton (){
+
+  // Create a div to hold the control.
+  var controlDiv = document.createElement('div');
+
+  // Set CSS styles for the DIV containing the control
+  // Setting padding to 5 px will offset the control
+  // from the edge of the map.
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'green';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to make guess';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '25px';
+  controlText.style.color = 'white';
+  controlText.style.paddingLeft = '15px';
+  controlText.style.paddingRight = '15px';
+  controlText.innerHTML = '<strong>Submit Guess</strong>';
+  controlUI.appendChild(controlText);
+
+  controlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+      calcDist();
+    });
+
+}
 
 })();

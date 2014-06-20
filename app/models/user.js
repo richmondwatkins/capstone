@@ -3,6 +3,7 @@ var userCollection = global.nss.db.collection('users');
 var Mongo = require('mongodb');
 var traceur = require('traceur');
 var Base = traceur.require(__dirname + '/base.js');
+var _ = require('lodash');
 
 class User{
   static create(obj, fn){
@@ -13,6 +14,7 @@ class User{
         user.email = obj.email;
         user.username = obj.username;
         user.password = bcrypt.hashSync(obj.password, 8);
+        user.faveLocs = [];
         userCollection.save(user, ()=>fn(user));
       }else{
         fn(null);
@@ -42,11 +44,18 @@ class User{
   static findByUsername(username, fn){
     userCollection.findOne({username:username}, (err, user)=>{
       if(user){
+        user = _.create(User.prototype, user);
         fn(user);
       }else{
         fn(null);
       }
     });
+  }
+
+
+  saveLocation(obj){
+    this.faveLocs.push(obj.coords);
+    userCollection.save(this, ()=>{});
   }
 
 }

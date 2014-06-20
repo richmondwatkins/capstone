@@ -95,6 +95,12 @@ exports.bounce = (req, res, next)=>{
   }
 };
 
+exports.saveLoc = (req, res)=>{
+  User.findByUsername(req.params.username, user=>{
+    user.saveLocation(req.body);
+  });
+};
+
 exports.saveGame = (req, res)=>{
   console.log(req.body);
 };

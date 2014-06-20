@@ -35,10 +35,11 @@ function load(app, fn){
   app.post('/logout', dbg, users.logout);
 
   app.get('/play', dbg, games.play);
-  app.post('/save/:userId', dbg, games.save);
+  app.post('/save/:username', dbg, games.save);
 
   app.get('/leaderboard', dbg, games.leaderboard);
 
+  app.post('/save/location/:username', users.saveLoc);
   app.get('/users/:username', dbg, users.show);
 
 

@@ -3,12 +3,13 @@ extends ../shared/template
 block content
   h3 Leaderboard
   #all-games
-    each game in games
-      h3.game= game.score
-      a(href='/users/#{game.user}')= game.user
-      div(class='leader-maps', id='#{game._id}')
-      each coord in game.coords
-        div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
+    .games
+      each game in games
+        h3.game= game.score
+        a(href='/users/#{game.user}')= game.user
+        div(class='leader-maps', id='#{game._id}')
+        each coord in game.coords
+          div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
 
 
 block scripts
