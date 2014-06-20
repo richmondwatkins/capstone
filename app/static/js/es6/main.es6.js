@@ -3,14 +3,9 @@
 (function(){
   'use strict';
 
-  var map;
   var marker;
   var streetViewLoc;
-  var modalMap;
-  var gameMap;
-  var gameMarker;
-  var actualMarker;
-
+  var map;
   var guessIcon = '/img/pin.png';
   var actualIcon = '/img/flag2.png';
 
@@ -90,8 +85,9 @@
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
       var modalMarker;
-      
-      modalMap = new google.maps.Map(document.getElementById('map-modal'), mapOptions);
+      var actualMarker;
+
+      var modalMap = new google.maps.Map(document.getElementById('map-modal'), mapOptions);
 
       addAllMarkers(modalMarker, coords[0], guessIcon, modalMap);
 
@@ -120,14 +116,16 @@
   //---called on final round --- maps all of the random svs and guesses
 
   function gameOver(locations){
-    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+    var myLatlng = new google.maps.LatLng(34.452218,-40.341797);
 
     var mapOptions = {
       zoom: 1,
       center: myLatlng
     };
+      var gameMarker;
+      var actualMarker;
 
-      gameMap = new google.maps.Map(document.getElementById('map-game'), mapOptions);
+      var gameMap = new google.maps.Map(document.getElementById('map-game'), mapOptions);
 
       locations.forEach(l=>{
         addAllMarkers(gameMarker, l.coords[0], guessIcon, gameMap);
@@ -204,13 +202,13 @@
 // -------init map for marker and coordinate testing -----------
 
   function initialize() {
-    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+    var myLatlng = new google.maps.LatLng(37.71859,-16.875);
     var mapOptions = {
       zoom: 1,
       center: myLatlng,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     placeMarker();
   }
 
