@@ -32,7 +32,7 @@ exports.gameCreate = (req, res)=>{
       req.session.userId = user._id;
       res.render('users/gameover', {user: user});
     }else{
-      res.redirect('/');
+      res.render('users/error');
     }
   });
 };
@@ -45,7 +45,7 @@ exports.gameLogin = (req, res)=>{
       console.log(user);
       res.render('users/gameover', {user: user});
     }else{
-      res.redirect('/play');
+      res.render('users/error');
     }
   });
 };

@@ -4,13 +4,15 @@
   'use strict';
 
   var map;
-  var panorama;
   var marker;
   var streetViewLoc;
-  var modalMarker;
   var modalMap;
   var gameMap;
   var gameMarker;
+  var actualMarker;
+
+  var guessIcon = '/img/pin.png';
+  var actualIcon = '/img/flag2.png';
 
   $(document).ready(init);
 
@@ -34,7 +36,7 @@
     });
     var userId = $('#username').attr('data-username');
     ajax(`/save/${userId}`, 'POST', gameData, null);
-      window.location.href = '/';
+      window.location.href = '/leaderboard';
 
   }
 
@@ -67,7 +69,7 @@
     gameLocations.push(roundRes);
     round += 1;
 
-    if(round >= 5){
+    if(round >= 3){
       $( '#game-over' ).dialog('open');
       initModalMap(coords, distance);
       gameOver(gameLocations);
@@ -87,15 +89,16 @@
       center: coords[1],
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
-
+      var modalMarker;
+      
       modalMap = new google.maps.Map(document.getElementById('map-modal'), mapOptions);
-       modalMarker = new google.maps.Marker({
-          position: coords[0],
-          map: modalMap
-      });
 
-    drawLine(coords, modalMap);
-    calcPoints(distance);
+      addAllMarkers(modalMarker, coords[0], guessIcon, modalMap);
+
+      addAllMarkers(actualMarker, coords[1], actualIcon, modalMap);
+
+      drawLine(coords, modalMap);
+      calcPoints(distance);
   }
 
   function drawLine(points, selectedMap){
@@ -127,13 +130,18 @@
       gameMap = new google.maps.Map(document.getElementById('map-game'), mapOptions);
 
       locations.forEach(l=>{
-        gameMarker = new google.maps.Marker({
-           position: l.coords[0],
-           map: gameMap
-         });
+        addAllMarkers(gameMarker, l.coords[0], guessIcon, gameMap);
+        addAllMarkers(actualMarker, l.coords[1], actualIcon, gameMap);
          drawLine(l.coords, gameMap);
        });
+  }
 
+  function addAllMarkers(markerName, markerCoords, icon, map){
+    markerName = new google.maps.Marker({
+       position: markerCoords,
+       map: map,
+       icon: icon
+     });
   }
 
   function placeMarker() {
@@ -142,9 +150,11 @@
       var longitude = event.latLng.lng();
       let latLng = new google.maps.LatLng(latitude, longitude);
         if (!marker) {
+          var guessIcon = '/img/pin.png';
           marker = new google.maps.Marker({
               position: latLng,
-              map: map
+              map: map,
+              icon: guessIcon
           });
       } else {
           marker.setPosition(latLng);
@@ -236,14 +246,18 @@
 
 //---- intializes all modal/dialogue boxes ----
 
+
 function initDialogs(){
+  var windowHeight = $(window).height();
+  var windowWidth= $(window).width();
+
+// $(document).width();
   $( '#dialog' ).dialog({
     dialogClass: 'no-close',
     autoOpen: false,
     modal: true,
-    height: 'auto',
-    maxWidth: 100,
-    width: 'auto',
+    height: windowHeight,
+    width: windowWidth,
     buttons: [
               {
                 text: 'Next Round',
@@ -251,19 +265,27 @@ function initDialogs(){
                   $( this ).dialog( 'close' );
                 }
               }
+
             ]
   });
 
   $( '#game-over' ).dialog({
     dialogClass: 'no-close',
     autoOpen: false,
-    height: 600,
-    width: 1500,
+    height: windowHeight,
+    width: windowWidth,
     buttons: [
               {
-                text: 'OK',
+                text: 'New Game',
                 click: function() {
                   $( this ).dialog( 'close' );
+                  window.location.href = '/play';
+                }
+              },
+              {
+                text: 'Leaderboard',
+                click: function(){
+                  window.location.href = '/leaderboard';
                 }
               }
             ]

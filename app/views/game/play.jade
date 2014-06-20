@@ -7,6 +7,7 @@ block content
 
   #dialog
     #map-modal
+    .progress
     .distance
     .points
 
@@ -18,15 +19,18 @@ block content
       #username(data-username= '#{user.username}' )
       button#save-game Save Game
     if(!user)
+      button#show-login Login
+      button#show-register Register
       form#login-form
-        input(type='email', name='email', placeHolder='Email')
-        input(type='password', name='password', placeHolder='Password')
-        button#login Login
+        input.input(type='email', name='email', placeHolder='Email')
+        input.input(type='password', name='password', placeHolder='Password')
+        button#login Submit
       form#register-form
-        input(type='email', name='email', placeHolder='Email')
-        input(type='text', name='username', placeHolder='Username')
-        input(type='password', name='password', placeHolder='Password')
-        button#register Register
+        input.input(type='email', name='email', placeHolder='Email')
+        input.input(type='text', name='username', placeHolder='Username')
+        input.input(type='password', name='password', placeHolder='Password')
+        button#register Submit
+    .progress
     .distance
     .points
 
