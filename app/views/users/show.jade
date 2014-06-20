@@ -5,18 +5,20 @@ block content
   h3= owner.username
 
   each game in games
-    h3.game= game.score
-    a(href='/owners/#{game.owner}')= game.owner
-    div(class='leader-maps', id='#{game._id}')
-    each coord in game.coords
-      div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
+    .games
+      h3.game= game.score
+      a(href='/owners/#{game.owner}')= game.owner
+      div(class='leader-maps', id='#{game._id}')
+      each coord in game.coords
+        div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
 
   each location in owner.faveLocs
     div(class='faveLocs', data-coords='#{location}')
 
   h3 Favorites
-  #favsMap
 
+
+  #favsMap
   #pan
 
 block scripts

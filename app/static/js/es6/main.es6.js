@@ -133,7 +133,7 @@
     var myLatlng = new google.maps.LatLng(34.452218,-40.341797);
 
     var mapOptions = {
-      zoom: 1,
+      zoom: 2,
       center: myLatlng
     };
       var gameMarker;

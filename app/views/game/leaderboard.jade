@@ -3,10 +3,10 @@ extends ../shared/template
 block content
   h3 Leaderboard
   #all-games
-    .games
-      each game in games
-        h3.game= game.score
+    each game in games
+      .games
         a(href='/users/#{game.user}')= game.user
+        h3.game= game.score
         div(class='leader-maps', id='#{game._id}')
         each coord in game.coords
           div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
