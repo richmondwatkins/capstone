@@ -10,7 +10,7 @@
     showFaveLocs();
   }
 
-var favLocMarkers = [];
+var favLocMap;
 
 function showFaveLocs(){
   var locations = $('.faveLocs');
@@ -27,31 +27,71 @@ function showFaveLocs(){
       zoom: 1,
       center: centerLatLng,
     };
-    var favLocMap;
+
         favLocMap = new google.maps.Map(document.getElementById('favsMap'), mapOptions);
 
     favLocsArray.forEach(c=>{
       c.coords = c.coords.toString();
 
       c.coords = c.coords.replace(')' , '').replace('(', '').split(',');
-      console.log(c.coords[0]);
       var favCoords = new google.maps.LatLng(c.coords[0], c.coords[1]);
 
 
-      favLocMarkers = new google.maps.Marker({
+      favCoords = new google.maps.Marker({
         position: favCoords,
         map: favLocMap,
         animation: google.maps.Animation.DROP
       });
 
 
-      google.maps.event.addListener(favLocMarkers, 'click', function() {
-       console.log('make it');
+      google.maps.event.addListener(favCoords, 'click', function(event) {
+       showPanorama(event.latLng);
+       infoWindows(favCoords,event.latLng);
      });
-     
+
     });
 
 
+}
+var geocoder;
+var infowindow = new google.maps.InfoWindow();
+
+function infoWindows(favCoords,coords){
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'latLng': coords}, function(results, status) {
+    infowindow.setContent(results[1].formatted_address);
+    infowindow.open(favLocMap, favCoords);
+  //   if (status === google.maps.GeocoderStatus.OK) {
+  //     if (results[1]) {
+  //       map.setZoom(11);
+  //       infowindow.setContent(results[1].formatted_address);
+  //       infowindow.open(favLocMap, favLocMarkers);
+  //     } else {
+  //       alert('No results found');
+  //     }
+  //   } else {
+  //     alert('Geocoder failed due to: ' + status);
+  //   }
+  });
+}
+
+function showPanorama(coords){
+  var panoramaOptions = {
+    position: coords,
+    addressControl: false,
+    linksControl: false,
+    panControl: false,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.TOP_RIGHT
+    },
+    pov: {
+      heading: 34,
+      pitch: 10
+    }
+  };
+
+  var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pan'), panoramaOptions);
+   var isUser = $('#username').attr('data-username');
 }
 
 function showMaps(){
