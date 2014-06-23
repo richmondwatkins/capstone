@@ -43,6 +43,7 @@ function load(app, fn){
 
 
   app.get('/maps', dbg, maps.index);
+  app.get('/maps/:mapId', dbg, maps.show);
   app.get('/create', dbg, maps.new);
   app.post('/create', dbg, maps.create);
 

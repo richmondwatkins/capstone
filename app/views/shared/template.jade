@@ -31,6 +31,9 @@ html
       a(href='/play') Game
       a(href='/leaderboard') Leaderboard
       if(user)
+        a(href='/create') Create a Map
+      a(href='/maps') User Created Maps
+      if(user)
         a(href='/users/#{user.username}') My Profile
     block content
 

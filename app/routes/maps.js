@@ -17,3 +17,9 @@ exports.new = (req, res)=>{
 exports.create = (req, res)=>{
   UserMap.create(req.body);
 };
+
+exports.show = (req, res)=>{
+  UserMap.findById(req.params.mapId, map=>{
+    res.render('maps/show', {map: map});
+  });
+};

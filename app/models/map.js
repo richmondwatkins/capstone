@@ -26,11 +26,10 @@ class Map{
   //   });
   // }
   //
-  //
-  //
-  // static findById(id, fn){
-  //   Base.findById(id, mapCollection, Map, fn);
-  // }
+
+  static findById(id, fn){
+    Base.findById(id, mapCollection, Map, fn);
+  }
 }
 
 module.exports = Map;

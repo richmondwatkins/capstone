@@ -4,7 +4,7 @@ block content
   h3 ALL GAMES
 
   each map in maps
-    h3= map.user
+    a(href='/maps/#{map._id}')= map.user
     div(class='maps', id='#{map._id}')
     div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
 

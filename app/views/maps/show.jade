@@ -1,0 +1,43 @@
+extends ../shared/template
+
+block content
+  h3= map.title
+  div(class='map-settings',data-ne='#{map.ne}',  data-center='#{map.center}', data-zoom='#{map.zoom}', data-sw='#{map.sw}')
+  #pano
+    #map-canvas
+    img(src='/img/loader.gif')#loader
+  #dialog
+    #map-modal
+    .progress
+    .distance
+    .roundPoints
+    .gamePoints
+
+  #game-over
+    #map-game
+    #user
+      if(user)
+        h4= user.email
+        #username(data-username= '#{user.username}' )
+        button#save-game Save Game
+      if(!user)
+        p If you would like to save this game, login or register
+        button#show-login Login
+        button#show-register Register
+        form#login-form
+          input.input(type='email', name='email', placeHolder='Email')
+          input.input(type='password', name='password', placeHolder='Password')
+          button#login Submit
+        form#register-form
+          input.input(type='email', name='email', placeHolder='Email')
+          input.input(type='text', name='username', placeHolder='Username')
+          input.input(type='password', name='password', placeHolder='Password')
+          button#register Submit
+    .progress
+    .distance
+    .roundPoints
+    .gamePoints
+
+
+block scripts
+  script(src='/js/es6/compiled/playusermap.js')
