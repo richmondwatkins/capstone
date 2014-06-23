@@ -17,11 +17,6 @@
     $('#make-guess').click(calcDist);
     $('#game-over').on('click', '#save-game', saveGame);
     initDialogs();
-    $('#test').click(test);
-  }
-
-  function test(){
-    $('#pano').empty();
   }
 
   //-----saves game
@@ -92,7 +87,7 @@
     var mapOptions = {
       zoom: 2,
       center: coords[1],
-      mapTypeId: google.maps.MapTypeId.SATELLITE
+      mapTypeId: google.maps.MapTypeId.TERRAIN
     };
       var modalMarker;
       var actualMarker;
@@ -134,7 +129,9 @@
 
     var mapOptions = {
       zoom: 2,
-      center: myLatlng
+      center: myLatlng,
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+
     };
       var gameMarker;
       var actualMarker;
@@ -243,7 +240,7 @@
       zoom: 1,
       center: myLatlng,
       draggableCursor: 'crosshair',
-      mapTypeId: google.maps.MapTypeId.SATELLITE
+      mapTypeId: google.maps.MapTypeId.TERRAIN
     };
      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -390,10 +387,8 @@ function guessButton (){
   // Create a div to hold the control.
   var controlDiv = document.createElement('div');
 
-  // Set CSS styles for the DIV containing the control
-  // Setting padding to 5 px will offset the control
-  // from the edge of the map.
   controlDiv.style.padding = '5px';
+  controlDiv.setAttribute('id', 'guess');
 
   // Set CSS for the control border.
   var controlUI = document.createElement('div');

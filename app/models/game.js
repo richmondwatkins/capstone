@@ -13,7 +13,6 @@ class Game{
     game.date = new Date();
     gameCollection.save(game, ()=>fn());
 
-
   }
 
   static findAll(fn){

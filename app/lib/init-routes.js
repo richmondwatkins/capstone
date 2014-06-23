@@ -20,6 +20,7 @@ function load(app, fn){
   var users = traceur.require(__dirname + '/../routes/users.js');
   var games = traceur.require(__dirname + '/../routes/games.js');
   var locations = traceur.require(__dirname + '/../routes/locations.js');
+  var maps = traceur.require(__dirname + '/../routes/maps.js');
 
 
 
@@ -38,8 +39,13 @@ function load(app, fn){
 
   app.get('/play', dbg, games.play);
   app.post('/save/:username', dbg, games.save);
-
   app.get('/leaderboard', dbg, games.leaderboard);
+
+
+  app.get('/maps', dbg, maps.index);
+  app.get('/create', dbg, maps.new);
+  app.post('/create', dbg, maps.create);
+
 
   app.post('/save/location/:username', locations.save);
   app.get('/users/:username', dbg, users.show);
