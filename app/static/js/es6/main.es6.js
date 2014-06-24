@@ -9,6 +9,8 @@
   var guessIcon = '/img/pin.png';
   var actualIcon = '/img/flag2.png';
   var panorama;
+  var guessArray = [];
+
   $(document).ready(init);
 
   function init(){
@@ -46,10 +48,11 @@
 
   function calcDist(e){
     var distance = (google.maps.geometry.spherical.computeDistanceBetween(marker.position, streetViewLoc)).toFixed(2);
+    console.log(distance);
     var coordsArray = [];
     coordsArray.push(marker.position, streetViewLoc);
 
-    distance = (distance / 5280).toFixed(2);
+    distance = (distance / 1609.34).toFixed(2);
 
     roundResults(coordsArray, distance);
 
@@ -234,7 +237,7 @@
 // -------init map for marker and coordinate testing -----------
 
   function initialize() {
-
+    guessArray = [];
     var myLatlng = new google.maps.LatLng(37.71859,-16.875);
     var mapOptions = {
       zoom: 1,
@@ -384,38 +387,48 @@ function favoriteButton(){
 
 function guessButton (){
 
-  // Create a div to hold the control.
-  var controlDiv = document.createElement('div');
+  var guess = $('#guess').toArray;
+  guessArray.push(guess);
 
-  controlDiv.style.padding = '5px';
-  controlDiv.setAttribute('id', 'guess');
+  if(guessArray.length <= 1){
+    // Create a div to hold the control.
+    var controlDiv = document.createElement('div');
 
-  // Set CSS for the control border.
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'green';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to make guess';
-  controlDiv.appendChild(controlUI);
+    controlDiv.style.padding = '5px';
+    controlDiv.setAttribute('id', 'guess');
 
-  // Set CSS for the control interior.
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '25px';
-  controlText.style.color = 'white';
-  controlText.style.paddingLeft = '15px';
-  controlText.style.paddingRight = '15px';
-  controlText.innerHTML = '<strong>Submit Guess</strong>';
-  controlUI.appendChild(controlText);
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = 'green';
+    controlUI.style.borderStyle = 'solid';
+    controlUI.style.borderWidth = '2px';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Click to make guess';
+    controlDiv.appendChild(controlUI);
 
-  controlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.fontFamily = 'Arial,sans-serif';
+    controlText.style.fontSize = '25px';
+    controlText.style.color = 'white';
+    controlText.style.paddingLeft = '15px';
+    controlText.style.paddingRight = '15px';
+    controlText.innerHTML = '<strong>Submit Guess</strong>';
+    controlUI.appendChild(controlText);
 
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-      calcDist();
-    });
+    controlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+
+    google.maps.event.addDomListener(controlUI, 'click', function() {
+        calcDist();
+      });
+
+
+
+  } else{
+    return null;
+  }
 
 }
 
