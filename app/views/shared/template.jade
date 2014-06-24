@@ -7,34 +7,72 @@ html
     link(href='/css/zebra_dialog.css', rel='stylesheet')
     link(rel='stylesheet', href='//code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css')
     script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyArPvnhx4BUiKnrYG6cyNX-YZL21LruNAQ&sensor=false')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
 
 
-  body
-    |<div id="fb-root"></div>
-    |<script>(function(d, s, id) {
-    |var js, fjs = d.getElementsByTagName(s)[0];
-    |if (d.getElementById(id)) return;
-    |js = d.createElement(s); js.id = id;
-    |js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1435231173405378&version=v2.0";
-    |fjs.parentNode.insertBefore(js, fjs);
-    |}(document, 'script', 'facebook-jssdk'));</script>
-    .fb-share-button(data-href='lms.richmondwatkins.com', data-type='button_count')
-
-
-    #dashboard
-      if(user)
-        h3= user.email
-      form(action='/logout', method='POST')
+  body.container
+    //- |<div id="fb-root"></div>
+    //- |<script>(function(d, s, id) {
+    //- |var js, fjs = d.getElementsByTagName(s)[0];
+    //- |if (d.getElementById(id)) return;
+    //- |js = d.createElement(s); js.id = id;
+    //- |js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1435231173405378&version=v2.0";
+    //- |fjs.parentNode.insertBefore(js, fjs);
+    //- |}(document, 'script', 'facebook-jssdk'));</script>
+    //- .fb-share-button(data-href='lms.richmondwatkins.com', data-type='button_count')
+    if(user)
+      form#logout(action='/logout', method='POST')
         button#logout Logout
 
-      a(href='/') Home
-      a(href='/play') Game
-      a(href='/leaderboard') Leaderboard
+    #template-nav
       if(user)
-        a(href='/create') Create a Map
-      a(href='/maps') User Created Maps
+        h3= user.email
+
+      a(href='/')
+        span.glyphicon.glyphicon-home
+        | Home
+
+      a(href='/play')
+        span.glyphicon.glyphicon-map-marker
+        | Play
+
+      a(href='/leaderboard')
+        span.glyphicon.glyphicon-star
+        | Leaderboard
+
       if(user)
-        a(href='/users/#{user.username}') My Profile
+        a(href='/create')
+          span.glyphicon.glyphicon-plus
+          | Create a Map
+
+      a(href='/maps')
+        span.glyphicon.glyphicon-globe
+        |User Created Maps
+
+      if(user)
+        a(href='/users/#{user.username}')
+          span.glyphicon.glyphicon-user
+          | My Profile
+
+      if(!user)
+        a#show-login(href='#')
+          span.glyphicon.glyphicon-ok
+          | Login
+          form#login-home(action='/home/login', method='POST')
+            input(type='email', name='email', placeHolder='Email')
+            input(type='password', name='password', placeHolder='Password')
+            button#submit-login Login
+
+      if(!user)
+        a#show-registration(href='#')
+          span.glyphicon.glyphicon-refresh
+          | Register
+          form#register-home(action='/home/register', method='POST')
+            input(type='email', name='email', placeHolder='Email')
+            input(type='text', name='username', placeHolder='Username')
+            input(type='password', name='password', placeHolder='Password')
+            button#submit-registration Register
+
     block content
 
 
@@ -47,6 +85,7 @@ html
     script(src='/js/vendor/traceur.js')
     script(src='/socket.io/socket.io.js')
     script(src='/js/es5/main.js')
+    script(src='/js/es6/compiled/navigation.js')
     script(src='/js/es6/compiled/users.js')
     script(src='/js/es6/compiled/sockets.js')
 

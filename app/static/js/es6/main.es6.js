@@ -228,9 +228,13 @@
       totalPoints += 10;
       roundPoints += 10;
     }
+
     $('.distance').text(`${dist} miles from actual location`);
     $('.roundPoints').text(`${roundPoints} points this round`);
-    $('.gamePoints').text(`${totalPoints} points this game`);
+    $('.gamePoints').text(`${totalPoints} out of 500 possible`);
+
+    var percentage = (totalPoints / 500) * 100;
+    $('.progress-bar.progress-bar-warning').css('width', `${percentage}%`);
   }
 
 

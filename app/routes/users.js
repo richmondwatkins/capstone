@@ -44,6 +44,7 @@ exports.gameLogin = (req, res)=>{
 };
 
 exports.homeLogin = (req, res)=>{
+  console.log(req.body);
   User.login(req.body, user=>{
     if(user){
       req.session.userId = user._id;
