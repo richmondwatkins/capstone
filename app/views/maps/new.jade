@@ -5,7 +5,7 @@ block content
   button#save-map Save Map
   #new-map
 
-  #user(data-username='#{user.username}')
+  #user(data-username='#{user.username}', data-userId= '#{user._id}')
 
 block scripts
   script(src='/js/es6/compiled/createmaps.js')

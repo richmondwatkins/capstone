@@ -52,6 +52,10 @@ class User{
     });
   }
 
+  isOwner(user){
+    return user.toString() === this._id.toString();
+  }
+
 
   saveLocation(obj){
     this.faveLocs.push(obj.coords);

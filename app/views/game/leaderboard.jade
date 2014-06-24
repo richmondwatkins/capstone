@@ -10,7 +10,6 @@ block content
         div(class='leader-maps', id='#{game._id}')
         each coord in game.coords
           div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
-
-
+  
 block scripts
   script(src='/js/es6/compiled/mapsindex.js')

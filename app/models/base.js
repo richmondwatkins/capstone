@@ -47,6 +47,12 @@ class Base{
       fn(objs);
     });
   }
+
+  static findAndRemove(collection, mode, id){
+    id = Mongo.ObjectID(id);
+    collection.findAndRemove({_id: id}, ()=>{});
+  }
+
 }
 
 

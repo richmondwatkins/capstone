@@ -4,12 +4,12 @@ var traceur = require('traceur');
 var Base = traceur.require(__dirname + '/base.js');
 
 class Game{
-  static create(obj, username, fn){
-    console.log(obj);
+  static create(obj, user, fn){
     var game = new Game();
     game.score = obj.score *1;
     game.coords = obj.coords;
-    game.user = username;
+    game.userId = user._id;
+    game.user = user.username;
     game.date = new Date();
     gameCollection.save(game, ()=>fn());
 
@@ -26,10 +26,15 @@ class Game{
   }
 
 
-
   static findById(id, fn){
     Base.findById(id, gameCollection, Game, fn);
   }
+
+  static findAndRemove(id){
+    Base.findAndRemove(gameCollection, Game, id);
+  }
+
+
 }
 
 module.exports = Game;

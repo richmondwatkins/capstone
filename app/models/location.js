@@ -5,7 +5,6 @@ var Base = traceur.require(__dirname + '/base.js');
 
 class Location{
   static create(obj, userId){
-    console.log(obj);
       var location = new Location();
       location.userId =  userId;
       location.locations = obj.coords;

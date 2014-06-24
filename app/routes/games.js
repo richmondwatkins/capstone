@@ -1,7 +1,7 @@
 'use strict';
 
 var traceur = require('traceur');
-// var User = traceur.require(__dirname + '/../models/user.js');
+var User = traceur.require(__dirname + '/../models/user.js');
 var Game = traceur.require(__dirname + '/../models/game.js');
 
 
@@ -11,8 +11,10 @@ exports.play = (req, res)=>{
 
 
 exports.save = (req, res)=>{
-  Game.create(req.body, req.params.username, fn=>{
-    console.log(fn);
+  User.findByUsername(req.params.username, user=>{
+    Game.create(req.body, user, fn=>{
+      console.log(fn);
+    });
   });
 };
 
@@ -21,4 +23,9 @@ exports.leaderboard = (req, res)=>{
   Game.findAll(games=>{
     res.render('game/leaderboard', {title: 'GeoFinder Leaderboard', games: games});
   });
+};
+
+
+exports.destroy = (req, res)=>{
+  Game.findAndRemove(req.params.gameId);
 };

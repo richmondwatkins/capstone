@@ -41,15 +41,16 @@ function load(app, fn){
   app.post('/save/:username', dbg, games.save);
   app.get('/leaderboard', dbg, games.leaderboard);
 
-
   app.get('/maps', dbg, maps.index);
   app.get('/maps/:mapId', dbg, maps.show);
   app.get('/create', dbg, maps.new);
   app.post('/create', dbg, maps.create);
+  app.post('/map/destroy/:mapId', dbg, maps.destroy);
 
 
   app.post('/save/location/:username', locations.save);
   app.get('/users/:username', dbg, users.show);
+  app.post('/game/destroy/:gameId', dbg, games.destroy);
 
 
 

@@ -55,7 +55,8 @@
         mapSettings.ne = ne.toString();
         mapSettings.sw = sw.toString();
         mapSettings.zoom = zoom.toString();
-        mapSettings.user = $('#user').attr('data-username');
+        mapSettings.username = $('#user').attr('data-username');
+        mapSettings.userId = $('#user').attr('data-userId');
         mapSettings.title = $('#map-title').val();
     ajax(`/create`, 'POST', mapSettings, null);
     window.location.href = '/maps';
