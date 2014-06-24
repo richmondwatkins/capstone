@@ -7,8 +7,11 @@
 
   function init(){
     showMaps();
+    showFaveLocs();
     $('body').on('click', '.deleteGame', deleteGame);
+    $('body').on('click', '.deleteMap', deleteMap);
 
+    showUserMaps();
   }
 
 function deleteGame(){
@@ -18,6 +21,121 @@ function deleteGame(){
   // data.owner = ownerId;
   $.ajax({url: `/game/destroy/${gameId}`, type: 'POST', data: null, success: null});
     location.reload(true);
+}
+
+function deleteMap(){
+  var mapId = $(this).siblings('.maps').attr('id');
+  // var data = {};
+  // var ownerId = $('#owner').attr('data-id');
+  // data.owner = ownerId;
+  $.ajax({url: `/map/destroy/${mapId}`, type: 'POST', data: null, success: null});
+    location.reload(true);
+}
+
+var userMaps;
+
+function showUserMaps(){
+  var maps = $('.maps');
+  var mapSettings = $('.map-settings');
+
+
+  var mapsArray = [];
+  for(var i = 0; i < maps.length; i ++){
+    var mapObj = {};
+        mapObj.zoom = $(mapSettings[i]).attr('data-zoom');
+        mapObj.center = $(mapSettings[i]).attr('data-center');
+        mapObj.id = $(maps[i]).attr('id');
+    mapsArray.push(mapObj);
+  }
+
+  mapsArray.forEach(m=>{
+
+    m.center = m.center.replace(')', '').replace('(', '').split(',');
+    m.zoom *= 1;
+
+    var center = new google.maps.LatLng(m.center[0], m.center[1]);
+
+    var mapOptions = {
+      zoom: m.zoom,
+      center: center,
+    };
+      userMaps = m.id;
+      userMaps = new google.maps.Map(document.getElementById(m.id), mapOptions);
+  });
+}
+
+
+var favLocMap;
+
+function showFaveLocs(){
+  var locations = $('.faveLocs');
+  var favLocsArray = [];
+    for(var i = 0; i< locations.length; i++){
+      var locsObj = {};
+      locsObj.coords = $(locations[i]).attr('data-coords');
+      favLocsArray.push(locsObj);
+    }
+
+    var centerLatLng = new google.maps.LatLng(37.71859,-16.875);
+
+    var mapOptions = {
+      zoom: 1,
+      center: centerLatLng,
+    };
+
+        favLocMap = new google.maps.Map(document.getElementById('favsMap'), mapOptions);
+
+    favLocsArray.forEach(c=>{
+      c.coords = c.coords.toString();
+
+      c.coords = c.coords.replace(')' , '').replace('(', '').split(',');
+      var favCoords = new google.maps.LatLng(c.coords[0], c.coords[1]);
+
+
+      favCoords = new google.maps.Marker({
+        position: favCoords,
+        map: favLocMap,
+        animation: google.maps.Animation.DROP
+      });
+
+
+      google.maps.event.addListener(favCoords, 'click', function(event) {
+       showPanorama(event.latLng);
+       infoWindows(favCoords,event.latLng);
+     });
+
+    });
+
+
+}
+var geocoder;
+var infowindow = new google.maps.InfoWindow();
+
+function infoWindows(favCoords,coords){
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'latLng': coords}, function(results, status) {
+    infowindow.setContent(results[1].formatted_address);
+    infowindow.open(favLocMap, favCoords);
+  });
+}
+
+function showPanorama(coords){
+  var panoramaOptions = {
+    position: coords,
+    addressControl: false,
+    linksControl: false,
+    panControl: false,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.TOP_RIGHT
+    },
+    pov: {
+      heading: 34,
+      pitch: 10
+    }
+  };
+
+  var panorama = new  google.maps.StreetViewPanorama(document.getElementById('pan'), panoramaOptions);
+   var isUser = $('#username').attr('data-username');
 }
 
 function showMaps(){

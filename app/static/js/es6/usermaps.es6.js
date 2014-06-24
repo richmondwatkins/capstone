@@ -29,6 +29,8 @@
 
       m.center = m.center.replace(')', '').replace('(', '').split(',');
       m.zoom *= 1;
+      m.zoom += 1;
+
 
       var center = new google.maps.LatLng(m.center[0], m.center[1]);
 
