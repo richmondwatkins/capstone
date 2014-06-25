@@ -31,7 +31,7 @@
 
     center = center.replace(')', '').replace('(', '').split(',');
     zoom *= 1;
-    // zoom +=1;
+    zoom +=1;
 
     center = new google.maps.LatLng(center[0], center[1]);
   }

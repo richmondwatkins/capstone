@@ -23,11 +23,10 @@ function showFaveLocs(){
   var favLocsArray = [];
     for(var i = 0; i< locations.length; i++){
       var locsObj = {};
+      locsObj.user = $(locations[i]).attr('data-user');
       locsObj.coords = $(locations[i]).attr('data-coords');
       favLocsArray.push(locsObj);
     }
-
-    console.log(favLocsArray);
 
     var centerLatLng = new google.maps.LatLng(37.71859,-16.875);
 
@@ -39,7 +38,7 @@ function showFaveLocs(){
     favLocMap = new google.maps.Map(document.getElementById('home-map'), mapOptions);
 
     favLocsArray.forEach(c=>{
-      console.log(c);
+      console.log(c.user);
       c.coords = c.coords.toString();
 
       c.coords = c.coords.replace(')' , '').replace('(', '').split(',');
@@ -55,22 +54,31 @@ function showFaveLocs(){
 
       google.maps.event.addListener(favCoords, 'click', function(event) {
         $( '#dialog' ).dialog('open');
+
        showPanorama(event.latLng);
-       infoWindows(favCoords,event.latLng);
+       infoWindows(favCoords,event.latLng, c.user);
      });
 
     });
 
 
 }
+
+
 var geocoder;
 var infowindow = new google.maps.InfoWindow();
 
-function infoWindows(favCoords,coords){
+function infoWindows(favCoords,coords, user){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode({'latLng': coords}, function(results, status) {
-    infowindow.setContent(results[2].formatted_address);
-    infowindow.open(favLocMap, favCoords);
+    var content = `<div>
+                  <h3>${results[1].formatted_address}</h3>
+                  <div id='pan'></div>
+                  <a href=/users/${user}>Found By: ${user}</a>
+                  </div>`;
+      infowindow.setContent(content);
+      infowindow.open(favLocMap, favCoords);
+
   });
 }
 
@@ -189,8 +197,8 @@ function drawLine(points, selectedMap){
 
 
 function initDialog(){
-  var windowHeight = $(window).height();
-  var windowWidth= $(window).width();
+  var windowHeight = $(window).height() * 0.75;
+  var windowWidth= $(window).width() * 0.75;
 
 
   $( '#dialog' ).dialog({

@@ -5,7 +5,7 @@ block content
   #dialog
     #pan
   each location in locations
-    div(class='faveLocs', data-coords='#{location.locations}')
+    div(class='faveLocs', data-coords='#{location.locations}', data-user='#{location.username}')
 
 block scripts
   script(src='/js/es6/compiled/homemap.js')

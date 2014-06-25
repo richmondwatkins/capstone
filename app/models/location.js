@@ -4,9 +4,10 @@ var Base = traceur.require(__dirname + '/base.js');
 // var _ = require('lodash');
 
 class Location{
-  static create(obj, userId, fn){
+  static create(obj, user, fn){
       var location = new Location();
-      location.userId =  userId;
+      location.userId =  user._id;
+      location.username =  user.username;
       location.locations = obj.coords;
       locationCollection.save(location, ()=>fn());
     }
