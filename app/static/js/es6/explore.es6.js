@@ -13,6 +13,7 @@
 
   function init(){
     randomStreetView();
+    $('#explore').click(randomStreetView);
   }
 
   function randomStreetView(){
@@ -49,9 +50,6 @@
         favoriteButton();
         $('body').on('click', '#favorite', saveFavorite);
       }
-
-      spinGlobe();
-      $('body').on('click', '#spin', randomStreetView);
 
    } else{
     $('#globe').addClass('loading');
@@ -95,8 +93,10 @@ function saveFavorite (){
   var username = $('#username').attr('data-username');
   faveLoc.coords = streetViewLoc.toString();
 
-  ajax(`/save/location/${username}`, 'POST', faveLoc, null);
-  $('#favorite > div').css('border-color', 'yellow');
+  ajax(`/save/location/${username}`, 'POST', faveLoc, res=>{
+    console.log(res);
+    $('#favorite > div').css('border-color', 'yellow');
+  });
 }
 
 function favoriteButton(){

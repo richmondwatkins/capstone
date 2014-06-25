@@ -20,6 +20,7 @@ html
     //- |fjs.parentNode.insertBefore(js, fjs);
     //- |}(document, 'script', 'facebook-jssdk'));</script>
     //- .fb-share-button(data-href='lms.richmondwatkins.com', data-type='button_count')
+
     if(user)
       form#logout(action='/logout', method='POST')
         button.btn.btn-warning.btn-xs#logout Logout
@@ -27,7 +28,9 @@ html
     #template-nav
       //- if(user)
       //-   h3= user.email
-      h4 World Explorer
+      .header
+        h1#title World Explorer
+          img#logo(src='/img/welogo2.png')
       a(href='/')
         span.glyphicon.glyphicon-home
         | Home
