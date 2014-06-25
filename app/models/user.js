@@ -4,6 +4,7 @@ var Mongo = require('mongodb');
 var traceur = require('traceur');
 var Base = traceur.require(__dirname + '/base.js');
 var _ = require('lodash');
+var async = require('async');
 
 class User{
   static create(obj, fn){
@@ -43,6 +44,7 @@ class User{
     Base.findById(id, userCollection, User, fn);
   }
 
+
   static findByUsername(username, fn){
     userCollection.findOne({username:username}, (err, user)=>{
       if(user){
@@ -54,6 +56,7 @@ class User{
     });
   }
 
+
   isOwner(user){
     return user.toString() === this._id.toString();
   }
@@ -64,6 +67,21 @@ class User{
     userCollection.save(this, ()=>{});
   }
 
+
+  static findImages(maps, fn){
+    async.map(maps, findAllImages, (e, images)=>{
+      fn(images);
+    });
+  }
+
+}
+
+//returns all of the users that are found from the async
+function findAllImages(users, fn){
+  'use strict';
+  User.findById(users.userId, user=>{
+    fn(null, user);
+  });
 }
 
 module.exports = User;

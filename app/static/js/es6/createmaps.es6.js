@@ -63,6 +63,7 @@
         mapSettings.zoom = zoom.toString();
         mapSettings.username = $('#user').attr('data-username');
         mapSettings.userId = $('#user').attr('data-userId');
+        mapSettings.userImage = $('#user').attr('data-image');
         mapSettings.title = $('#map-title').val();
     ajax(`/create`, 'POST', mapSettings, res=>{
       $('#maps-success').empty().append(res);

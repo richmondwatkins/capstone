@@ -21,7 +21,7 @@ block content
     .results
       if(user)
         h4= user.email
-        #username(data-username= '#{user.username}' )
+        #username(data-username= '#{user.username}', data-userImage='#{user.explorer}' )
         button#save-game Save Game
       if(!user)
         p#paragraph If you would like to save this game, login or register

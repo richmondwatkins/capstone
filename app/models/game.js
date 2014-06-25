@@ -8,6 +8,7 @@ class Game{
     var game = new Game();
     game.score = obj.score *1;
     game.coords = obj.coords;
+    game.userImage = obj.userImage;
     game.userId = user._id;
     game.user = user.username;
     game.date = new Date();

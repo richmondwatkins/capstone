@@ -5,6 +5,7 @@ var Base = traceur.require(__dirname + '/base.js');
 
 class Map{
   static create(obj, fn){
+    console.log(obj);
     var map = new Map();
         map.user= obj.username;
         map.userId = Mongo.ObjectID(obj.userId);
@@ -13,6 +14,7 @@ class Map{
         map.sw= obj.sw;
         map.center= obj.center;
         map.title = obj.title;
+        map.userImage = obj.userImage;
         map.date = new Date();
     mapCollection.save(map, ()=>fn());
   }

@@ -8,6 +8,7 @@ block content
       .games
         #place
         a.user(href='/users/#{game.user}')
+          img.img-circle#thumbnail(src='#{game.userImage}')
           h2.user= game.user
         h3.game #{game.score} Points
         div(class='leader-maps', id='#{game._id}')

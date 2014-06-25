@@ -25,8 +25,10 @@
 
   function saveGame(){
     var gameData = {};
+    var userImage = $('#username').attr('data-userImage');
         gameData.coords = [];
         gameData.score = totalPoints;
+        gameData.userImage = userImage;
     gameLocations.forEach(l=>{
       var coords = {};
       coords.guessLoc = l.coords[0].toString();
@@ -34,6 +36,7 @@
       gameData.coords.push(coords);
     });
     var username = $('#username').attr('data-username');
+
     ajax(`/save/${username}`, 'POST', gameData, res=>{
       console.log(res);
       window.location.href = '/leaderboard';

@@ -2,11 +2,12 @@
 
 var traceur = require('traceur');
 var UserMap = traceur.require(__dirname + '/../models/map.js');
+// var User = traceur.require(__dirname + '/../models/user.js');
+
 
 exports.index = (req, res)=>{
   UserMap.findAll(maps=>{
-    console.log(maps.user);
-    res.render('maps/index', {title: 'Make a new game', maps:maps});
+      res.render('maps/index', {title: 'Make a new game', maps:maps});
   });
 };
 
