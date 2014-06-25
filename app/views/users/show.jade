@@ -3,9 +3,9 @@ extends ../shared/template
 block content
   h3= owner.username
 
-  a#revealFavs(href='#') My Favorites
-  a#revealGames(href='#') My Saved Games
-  a#revealMaps(href='#') Games I Created
+  a.profile-links#revealFavs(href='#')  Favorite Locations
+  a.profile-links#revealGames(href='#') Saved Games
+  a.profile-links#revealMaps(href='#') Games / Maps
 
   #owner(data-id= owner._id)
   #my-games
@@ -33,7 +33,8 @@ block content
 
 
   #favsMap
-  #pan
+  #dialog
+    #pan
 
 block scripts
   script(src='/js/es6/compiled/profilemaps.js')

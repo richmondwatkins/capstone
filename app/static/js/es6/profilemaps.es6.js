@@ -16,6 +16,8 @@
     $('#revealFavs').click(showFavs);
     $('#revealMaps').click(showMyMaps);
 
+    initDialog();
+
   }
 
 function showMyMaps() {
@@ -136,6 +138,7 @@ function showFaveLocs(){
 
 
       google.maps.event.addListener(favCoords, 'click', function(event) {
+        $( '#dialog' ).dialog('open');
        showPanorama(event.latLng);
        infoWindows(favCoords,event.latLng);
      });
@@ -269,6 +272,29 @@ function drawLine(points, selectedMap){
 
 
 
+function initDialog(){
+  var windowHeight = $(window).height();
+  var windowWidth= $(window).width();
+
+
+  $( '#dialog' ).dialog({
+    dialogClass: 'no-close',
+    autoOpen: false,
+    modal: true,
+    height: windowHeight,
+    width: windowWidth,
+    buttons: [
+              {
+                text: 'X',
+                click: function() {
+                  $( this ).dialog( 'close' );
+                }
+              }
+
+            ]
+  });
+
+}
 
 
 

@@ -34,9 +34,10 @@
       gameData.coords.push(coords);
     });
     var username = $('#username').attr('data-username');
-    ajax(`/save/${username}`, 'POST', gameData, null);
+    ajax(`/save/${username}`, 'POST', gameData, res=>{
+      console.log(res);
       window.location.href = '/leaderboard';
-
+    });
   }
 
   function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){

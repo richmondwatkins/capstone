@@ -7,29 +7,20 @@
 
   function init(){
     showMaps();
-    $('body').on('click', '.deleteGame', deleteGame);
-    // place();
+    // $('body').on('click', '.deleteGame', deleteGame);
+  
   }
 
-// function place(){
-//   var maps = $('.leader-maps').toArray();
-//   var placeNum = 0;
-//   maps.forEach(i=>{
-//     placeNum += 1;
-//     $('#place').text(place);
-//
-//   });
-//
-// }
 
-function deleteGame(){
-  var gameId = $(this).siblings('.leader-maps').attr('id');
-  // var data = {};
-  // var ownerId = $('#owner').attr('data-id');
-  // data.owner = ownerId;
-  $.ajax({url: `/game/destroy/${gameId}`, type: 'POST', data: null, success: null});
-    location.reload(true);
-}
+
+// function deleteGame(){
+//   var gameId = $(this).siblings('.leader-maps').attr('id');
+//   // var data = {};
+//   // var ownerId = $('#owner').attr('data-id');
+//   // data.owner = ownerId;
+//   $.ajax({url: `/game/destroy/${gameId}`, type: 'POST', data: null, success: null});
+//     location.reload(true);
+// }
 
 function showMaps(){
   var maps = $('.leader-maps');

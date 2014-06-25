@@ -3,8 +3,8 @@ extends ../shared/template
 block content
   button#explore Spin the Globe!
   #globe
-  #username(data-username= '#{user.username}' )
-
+  if(user)
+    #username(data-username= '#{user.username}' )
   #pano
 
 

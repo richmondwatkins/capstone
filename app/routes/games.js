@@ -14,6 +14,7 @@ exports.save = (req, res)=>{
   User.findByUsername(req.params.username, user=>{
     Game.create(req.body, user, fn=>{
       console.log(fn);
+      res.render('maps/success');
     });
   });
 };

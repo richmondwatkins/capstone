@@ -7,13 +7,13 @@ block content
       .games
         #place
         a.user(href='/users/#{game.user}')
-          h2.user= user.username
+          h2.user= game.user
         h3.game #{game.score} Points
         h5.date= game.date
         div(class='leader-maps', id='#{game._id}')
         each coord in game.coords
           div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
-        if (user.isOwner(game.userId))
-          button.deleteGame X
+        //- if (user.isOwner(game.userId))
+        //-   button.deleteGame X
 block scripts
   script(src='/js/es6/compiled/mapsindex.js')
