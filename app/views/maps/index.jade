@@ -6,9 +6,8 @@ block content
   each map in maps
     .user-maps
       a#map-title(href='/maps/#{map._id}')= map.title
-      img.img-circle#thumbnail(src='#{map.userImage}')
       a#map-user(href='/users/#{map.user}') Created by: #{map.user}
-
+      img.img-circle#thumbnail(src='#{map.userImage}')
       div(class='maps', id='#{map._id}')
       h6= map.date
       div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
