@@ -6,13 +6,43 @@
   $(document).ready(init);
 
   function init(){
-    showMaps();
-    showFaveLocs();
     $('body').on('click', '.deleteGame', deleteGame);
     $('body').on('click', '.deleteMap', deleteMap);
+    $('#my-games').hide();
+    $('#my-maps').hide();
+    $('#favsMap').hide();
 
-    showUserMaps();
+    $('#revealGames').click(showGames);
+    $('#revealFavs').click(showFavs);
+    $('#revealMaps').click(showMyMaps);
+
   }
+
+function showMyMaps() {
+  $('#my-games').hide();
+  $('#pan').hide();
+  $('#favsMap').hide();
+  $('#my-maps').show();
+  showUserMaps();
+
+}
+
+function showFavs(){
+  $('#my-games').hide();
+  $('#my-maps').hide();
+  $('#pan').show();
+  $('#favsMap').show();
+  showFaveLocs();
+}
+
+function showGames(){
+  $('#favsMap').hide();
+  $('#pan').hide();
+  $('#my-maps').hide();
+  $('#my-games').show();
+  showMaps();
+
+}
 
 function deleteGame(){
   var gameId = $(this).siblings('.leader-maps').attr('id');
@@ -67,6 +97,7 @@ function showUserMaps(){
       userMaps = m.id;
       userMaps = new google.maps.Map(document.getElementById(m.id), mapOptions);
   });
+
 }
 
 
@@ -84,7 +115,7 @@ function showFaveLocs(){
     var centerLatLng = new google.maps.LatLng(37.71859,-16.875);
 
     var mapOptions = {
-      zoom: 1,
+      zoom: 2,
       center: centerLatLng,
     };
 

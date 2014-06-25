@@ -1,10 +1,13 @@
 extends ../shared/template
 
 block content
-
   h3= owner.username
+
+  a#revealFavs(href='#') My Favorites
+  a#revealGames(href='#') My Saved Games
+  a#revealMaps(href='#') Games I Created
+
   #owner(data-id= owner._id)
-  a(href='#') My Saved Games
   #my-games
     each game in games
       .games
@@ -19,7 +22,6 @@ block content
     each location in owner.faveLocs
       div(class='faveLocs', data-coords='#{location}')
 
-  a(href='#') Games I Created
   #my-maps
     each map in maps
       .my-maps
@@ -30,10 +32,8 @@ block content
           button.deleteMap X
 
 
-  a(href='#') My Favorites
-  #my-favorites
-    #favsMap
-    #pan
+  #favsMap
+  #pan
 
 block scripts
   script(src='/js/es6/compiled/profilemaps.js')
