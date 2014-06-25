@@ -14,7 +14,7 @@ class Map{
         map.center= obj.center;
         map.title = obj.title;
         map.date = new Date();
-    mapCollection.save(map, ()=>{});
+    mapCollection.save(map, ()=>fn());
   }
 
   static findAll(fn){
@@ -32,8 +32,8 @@ class Map{
     Base.findById(id, mapCollection, Map, fn);
   }
 
-  static findAndRemove(id){
-    Base.findAndRemove(mapCollection, Map, id);
+  static findAndRemove(id, fn){
+    Base.findAndRemove(mapCollection, Map, id, fn);
   }
 
 

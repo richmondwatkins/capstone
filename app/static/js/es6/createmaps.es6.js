@@ -64,8 +64,10 @@
         mapSettings.username = $('#user').attr('data-username');
         mapSettings.userId = $('#user').attr('data-userId');
         mapSettings.title = $('#map-title').val();
-    ajax(`/create`, 'POST', mapSettings, null);
-    window.location.href = '/maps';
+    ajax(`/create`, 'POST', mapSettings, res=>{
+      $('#maps-success').empty().append(res);
+      window.location.href = '/maps';
+    });
   }
 
   function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){

@@ -48,9 +48,9 @@ class Base{
     });
   }
 
-  static findAndRemove(collection, mode, id){
+  static findAndRemove(collection, mode, id, fn){
     id = Mongo.ObjectID(id);
-    collection.findAndRemove({_id: id}, ()=>{});
+    collection.findAndRemove({_id: id}, ()=>fn());
   }
 
 }

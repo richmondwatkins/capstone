@@ -27,5 +27,8 @@ exports.leaderboard = (req, res)=>{
 
 
 exports.destroy = (req, res)=>{
-  Game.findAndRemove(req.params.gameId);
+  Game.findAndRemove(req.params.gameId, fn=>{
+    console.log(fn);
+    res.render('maps/success');
+  });
 };

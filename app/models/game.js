@@ -30,8 +30,8 @@ class Game{
     Base.findById(id, gameCollection, Game, fn);
   }
 
-  static findAndRemove(id){
-    Base.findAndRemove(gameCollection, Game, id);
+  static findAndRemove(id, fn){
+    Base.findAndRemove(gameCollection, Game, id, fn);
   }
 
 

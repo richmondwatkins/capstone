@@ -14,7 +14,10 @@ exports.new = (req, res)=>{
 };
 
 exports.create = (req, res)=>{
-  UserMap.create(req.body);
+  UserMap.create(req.body, fn=>{
+    console.log(fn);
+    res.render('maps/success');
+  });
 };
 
 exports.show = (req, res)=>{
@@ -24,6 +27,8 @@ exports.show = (req, res)=>{
 };
 
 exports.destroy = (req, res)=>{
-  console.log(req.params.mapId);
-  UserMap.findAndRemove(req.params.mapId);
+  UserMap.findAndRemove(req.params.mapId, fn=>{
+    console.log(fn);
+    res.render('maps/success');
+  });
 };

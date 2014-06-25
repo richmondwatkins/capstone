@@ -16,21 +16,26 @@
 
 function deleteGame(){
   var gameId = $(this).siblings('.leader-maps').attr('id');
-  // var data = {};
-  // var ownerId = $('#owner').attr('data-id');
-  // data.owner = ownerId;
-  $.ajax({url: `/game/destroy/${gameId}`, type: 'POST', data: null, success: null});
+
+  ajax( `/game/destroy/${gameId}`, 'POST', null, res=>{
+    console.log(res);
     location.reload(true);
+  });
 }
 
 function deleteMap(){
   var mapId = $(this).siblings('.maps').attr('id');
-  // var data = {};
-  // var ownerId = $('#owner').attr('data-id');
-  // data.owner = ownerId;
-  $.ajax({url: `/map/destroy/${mapId}`, type: 'POST', data: null, success: null});
+  ajax( `/map/destroy/${mapId}`, 'POST', null, res=>{
+    console.log(res);
     location.reload(true);
+  });
 }
+
+
+function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
+$.ajax({url:url, type:type, dataType:dataType, data:data, success:success});
+}
+
 
 var userMaps;
 

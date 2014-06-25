@@ -4,31 +4,36 @@ block content
 
   h3= owner.username
   #owner(data-id= owner._id)
-  each game in games
-    .games
-      h3.game #{game.score} Points
-      a(href='/owners/#{game.owner}')= game.owner
-      div(class='leader-maps', id='#{game._id}')
-      each coord in game.coords
-        div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
-      if (user.isOwner(game.userId))
-        button.deleteGame X
+  a(href='#') My Saved Games
+  #my-games
+    each game in games
+      .games
+        h3.game #{game.score} Points
+        a(href='/owners/#{game.owner}')= game.owner
+        div(class='leader-maps', id='#{game._id}')
+        each coord in game.coords
+          div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
+        if (user.isOwner(game.userId))
+          button.deleteGame X
 
-  each location in owner.faveLocs
-    div(class='faveLocs', data-coords='#{location}')
+    each location in owner.faveLocs
+      div(class='faveLocs', data-coords='#{location}')
 
-  each map in maps
-    a(href='/maps/#{map._id}')= map.user
-    div(class='maps', id='#{map._id}')
-    div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
-    if (user.isOwner(map.userId))
-      button.deleteMap X
+  a(href='#') Games I Created
+  #my-maps
+    each map in maps
+      .my-maps
+        a(href='/maps/#{map._id}')= map.title
+        div(class='maps', id='#{map._id}')
+        div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
+        if (user.isOwner(map.userId))
+          button.deleteMap X
 
-  h3 Favorites
 
-
-  #favsMap
-  #pan
+  a(href='#') My Favorites
+  #my-favorites
+    #favsMap
+    #pan
 
 block scripts
   script(src='/js/es6/compiled/profilemaps.js')
