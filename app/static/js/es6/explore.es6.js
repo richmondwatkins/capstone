@@ -9,31 +9,16 @@
   var guessIcon = '/img/pin.png';
   var actualIcon = '/img/flag2.png';
   var panorama;
-  var zoom;
-  var center;
   var guessArray = [];
 
   $(document).ready(init);
 
   function init(){
-    setupSpecs();
     initialize();
     randomStreetView();
     $('#make-guess').click(calcDist);
     $('#game-over').on('click', '#save-game', saveGame);
     initDialogs();
-  }
-
-  function setupSpecs(){
-    zoom = $('.map-settings').attr('data-zoom');
-    center = $('.map-settings').attr('data-center');
-
-
-    center = center.replace(')', '').replace('(', '').split(',');
-    zoom *= 1;
-    // zoom +=1;
-
-    center = new google.maps.LatLng(center[0], center[1]);
   }
 
   //-----saves game
@@ -63,10 +48,11 @@
 
   function calcDist(e){
     var distance = (google.maps.geometry.spherical.computeDistanceBetween(marker.position, streetViewLoc)).toFixed(2);
+    console.log(distance);
     var coordsArray = [];
     coordsArray.push(marker.position, streetViewLoc);
 
-    distance = (distance / 5280).toFixed(2);
+    distance = (distance / 1609.34).toFixed(2);
 
     roundResults(coordsArray, distance);
 
@@ -102,7 +88,7 @@
 
   function initModalMap(coords, distance){
     var mapOptions = {
-      zoom: zoom,
+      zoom: 2,
       center: coords[1],
       mapTypeId: google.maps.MapTypeId.TERRAIN
     };
@@ -142,9 +128,11 @@
   //---called on final round --- maps all of the random svs and guesses
 
   function gameOver(locations){
+    var myLatlng = new google.maps.LatLng(34.452218,-40.341797);
+
     var mapOptions = {
-      zoom: zoom,
-      center: center,
+      zoom: 2,
+      center: myLatlng,
       mapTypeId: google.maps.MapTypeId.TERRAIN
 
     };
@@ -240,6 +228,7 @@
       totalPoints += 10;
       roundPoints += 10;
     }
+
     $('.distance').text(`${dist} miles from actual location`);
     $('.roundPoints').text(`${roundPoints} points this round`);
     $('.gamePoints').text(`${totalPoints} out of 500 possible`);
@@ -253,9 +242,10 @@
 
   function initialize() {
     guessArray = [];
+    var myLatlng = new google.maps.LatLng(37.71859,-16.875);
     var mapOptions = {
-      zoom: zoom,
-      center: center,
+      zoom: 1,
+      center: myLatlng,
       draggableCursor: 'crosshair',
       mapTypeId: google.maps.MapTypeId.TERRAIN
     };
@@ -268,17 +258,9 @@
 //---- The function name says it all ------
 
   function randomStreetView(){
-    var sw = $('.map-settings').attr('data-sw').replace(')', '').replace('(', '').split(',');
-    var ne = $('.map-settings').attr('data-ne').replace(')', '').replace('(', '').split(',');
-
-    var lat = chance.latitude({min: sw[0], max: ne[0]});
-    var long = chance.longitude({min: sw[1], max: ne[1]});
-
-
-    console.log(sw, ne);
     var geocoder = new google.maps.Geocoder();
-    var coords = chance.coordinates();
-    var latLng = new google.maps.LatLng(lat, long);
+    var coords = chance.coordinates().split(',');
+    var latLng = new google.maps.LatLng(coords[0], coords[1]);
     var streetView = new google.maps.StreetViewService();
     streetView.getPanoramaByLocation(latLng, 1000, response=>{
       if(response !== null){
@@ -346,7 +328,7 @@ function initDialogs(){
                 text: 'New Game',
                 click: function() {
                   $( this ).dialog( 'close' );
-                  window.location.href = '/maps';
+                  window.location.href = '/play';
                 }
               },
               {
@@ -451,6 +433,7 @@ function guessButton (){
   } else{
     return null;
   }
+
 }
 
 })();

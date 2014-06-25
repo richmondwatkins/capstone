@@ -52,7 +52,7 @@ function load(app, fn){
   app.get('/users/:username', dbg, users.show);
   app.post('/game/destroy/:gameId', dbg, games.destroy);
 
-
+  app.get('/explore', dbg, home.explore);
 
 
   app.all('*', users.bounce);
