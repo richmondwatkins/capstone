@@ -34,9 +34,9 @@ block content
         #registration-form
           form#register-form
             .inputs
-              input(type='email', name='email', placeHolder='Email')
-              input(type='text', name='username', placeHolder='Username')
-              input(type='password', name='password', placeHolder='Password')
+              input.form-control(type='email', name='email', placeHolder='Email')
+              input.form-control(type='text', name='username', placeHolder='Username')
+              input.form-control(type='password', name='password', placeHolder='Password')
             .explorer
               img(src='/img/amundsen.jpg')
               p Roald Amundsen
@@ -62,7 +62,7 @@ block content
               p Marco Polo
               input.radio(type='radio', name='explorer', value='/img/marcopolo.jpg')
             .input
-            button#register Register
+            button.btn.btn-primary.btn-lg#register Register
 
       .distance
       .roundPoints

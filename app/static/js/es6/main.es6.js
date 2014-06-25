@@ -302,8 +302,8 @@
 
 
 function initDialogs(){
-  var windowHeight = $(window).height();
-  var windowWidth= $(window).width();
+  var windowHeight = $(window).height() * 0.75;
+  var windowWidth= $(window).width() * 0.75;
 
 
   $( '#dialog' ).dialog({

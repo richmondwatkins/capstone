@@ -56,10 +56,10 @@ html
           a#show-login(href='#')
             span.glyphicon.glyphicon-ok
             | Login
-            form#login-home(action='/home/login', method='POST')
-              input(type='email', name='email', placeHolder='Email')
-              input(type='password', name='password', placeHolder='Password')
-              button#submit-login Login
+            form.form-inline#login-home(action='/home/login', method='POST')
+              input.form-control(type='email', name='email', placeHolder='Email')
+              input.form-control(type='password', name='password', placeHolder='Password')
+              buttonbtn.btn.btn-primary.btn-sm#submit-login Login
       .nav
         if(!user)
           a#show-registration(href='#')
@@ -67,9 +67,9 @@ html
             | Register
             form#register-home(action='/home/register', method='POST')
               .inputs
-                input(type='email', name='email', placeHolder='Email')
-                input(type='text', name='username', placeHolder='Username')
-                input(type='password', name='password', placeHolder='Password')
+                input.form-control(type='email', name='email', placeHolder='Email')
+                input.form-control(type='text', name='username', placeHolder='Username')
+                input.form-control(type='password', name='password', placeHolder='Password')
               .explorer
                 img(src='/img/amundsen.jpg')
                 p Roald Amundsen
@@ -95,7 +95,7 @@ html
                 p Marco Polo
                 input.radio(type='radio', name='explorer', value='/img/marcopolo.jpg')
               .input
-                button#submit-registration Register
+                button.btn.btn-primary.btn-lg#submit-registration Register
 
     block content
 

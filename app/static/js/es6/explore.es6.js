@@ -13,7 +13,6 @@
 
   function init(){
     randomStreetView();
-    $('#explore').click(randomStreetView);
   }
 
   function randomStreetView(){
@@ -50,6 +49,9 @@
         favoriteButton();
         $('body').on('click', '#favorite', saveFavorite);
       }
+
+      spinGlobe();
+      $('body').on('click', '#spin', randomStreetView);
 
    } else{
     $('#globe').addClass('loading');
@@ -128,6 +130,39 @@ function favoriteButton(){
   panorama.controls[google.maps.ControlPosition.RIGHT_CENTER].push(controlDiv);
 
 }
+
+function spinGlobe(){
+  // Create a div to hold the control.
+  var controlDiv = document.createElement('div');
+
+  controlDiv.style.padding = '5px';
+  controlDiv.setAttribute('id', 'spin');
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'green';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Favorite this location';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '25px';
+  controlText.style.color = 'white';
+  controlText.style.paddingLeft = '15px';
+  controlText.style.paddingRight = '15px';
+  controlText.innerHTML = '<strong>Spin the Globe!</strong>';
+  controlUI.appendChild(controlText);
+
+  controlDiv.index = 1;
+  panorama.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+
+}
+
 
 function ajax(url, type, data={}, success=r=>console.log(r), dataType='html'){
 $.ajax({url:url, type:type, dataType:dataType, data:data, success:success});

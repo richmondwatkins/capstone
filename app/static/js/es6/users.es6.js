@@ -9,9 +9,6 @@
   $(document).ready(initialize);
 
   function initialize(){
-    $('#register-form').hide();
-    $('#login-form').hide();
-
     $('button#show-login').click(showLogin);
     $('#show-register').click(showRegister);
 
@@ -25,7 +22,7 @@
   }
 
   function showRegister(){
-    $('#register-form').slideToggle();
+    $('#registration-form').slideToggle();
   }
 
   function loginUser(e){
