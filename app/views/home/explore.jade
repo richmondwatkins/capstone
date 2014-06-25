@@ -1,13 +1,11 @@
 extends ../shared/template
 
 block content
-  button#explore Explore!
+  button#explore Spin the Globe!
+  #globe
   #username(data-username= '#{user.username}' )
 
   #pano
-
-    img(src='/img/loader.gif')#loader
-
 
 
 block scripts
