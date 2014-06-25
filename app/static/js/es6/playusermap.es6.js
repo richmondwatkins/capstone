@@ -103,8 +103,7 @@
   function initModalMap(coords, distance){
     var mapOptions = {
       zoom: zoom,
-      center: coords[1],
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+      center: coords[1]
     };
       var modalMarker;
       var actualMarker;
@@ -144,8 +143,7 @@
   function gameOver(locations){
     var mapOptions = {
       zoom: zoom,
-      center: center,
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+      center: center
 
     };
       var gameMarker;
@@ -256,8 +254,7 @@
     var mapOptions = {
       zoom: zoom,
       center: center,
-      draggableCursor: 'crosshair',
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+      draggableCursor: 'crosshair'
     };
      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -318,8 +315,8 @@
 
 
 function initDialogs(){
-  var windowHeight = $(window).height();
-  var windowWidth= $(window).width();
+  var windowHeight = $(window).height() *0.75;
+  var windowWidth= $(window).width()*0.9;
 
 
   $( '#dialog' ).dialog({
@@ -343,6 +340,7 @@ function initDialogs(){
     dialogClass: 'no-close',
     autoOpen: false,
     height: windowHeight,
+    modal: true,
     width: windowWidth,
     buttons: [
               {

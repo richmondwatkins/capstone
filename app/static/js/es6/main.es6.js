@@ -327,6 +327,7 @@ function initDialogs(){
     dialogClass: 'no-close',
     autoOpen: false,
     height: windowHeight,
+    modal: true,
     width: windowWidth,
     buttons: [
               {
