@@ -28,8 +28,8 @@
       // getCoords(response.location.latLng);
      var panoramaOptions = {
        position: response.location.latLng,
-       addressControl: false,
-       linksControl: false,
+       addressControl: true,
+       linksControl: true,
        panControl: false,
        zoomControlOptions: {
          position: google.maps.ControlPosition.TOP_RIGHT
