@@ -153,7 +153,7 @@ var infowindow = new google.maps.InfoWindow();
 function infoWindows(favCoords,coords){
   geocoder = new google.maps.Geocoder();
   geocoder.geocode({'latLng': coords}, function(results, status) {
-    infowindow.setContent(results[1].formatted_address);
+    infowindow.setContent(results[2].formatted_address);
     infowindow.open(favLocMap, favCoords);
   });
 }

@@ -6,6 +6,8 @@
 
   var panorama;
   var streetViewLoc;
+  var map;
+  var marker;
 
   $(document).ready(init);
 
@@ -20,7 +22,6 @@
   var latLng = new google.maps.LatLng(coords[0], coords[1]);
   var streetView = new google.maps.StreetViewService();
   streetView.getPanoramaByLocation(latLng, 1000, response=>{
-    console.log(response);
     if(response !== null){
       $('#globe').removeClass('loading');
 
@@ -28,8 +29,8 @@
       // getCoords(response.location.latLng);
      var panoramaOptions = {
        position: response.location.latLng,
-       addressControl: true,
-       linksControl: true,
+       addressControl: false,
+       linksControl: false,
        panControl: false,
        zoomControlOptions: {
          position: google.maps.ControlPosition.TOP_RIGHT
@@ -41,6 +42,9 @@
      };
 
       panorama = new  google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+
+      initialize();
+
       var isUser = $('#username').attr('data-username');
       if(isUser !== undefined){
         favoriteButton();
@@ -52,6 +56,38 @@
     randomStreetView();
    }
  });
+}
+
+function initialize() {
+  var myLatlng = new google.maps.LatLng(37.71859,-16.875);
+  var mapOptions = {
+    zoom: 1,
+    center: myLatlng,
+    draggableCursor: 'crosshair',
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
+   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+    marker = new google.maps.Marker({
+      position: streetViewLoc,
+      map: map,
+      animation: google.maps.Animation.DROP
+    });
+
+  google.maps.event.addListener(marker, 'click', function(event) {
+    infoWindow();
+  });
+}
+
+
+
+function infoWindow(){
+  var infowindow = new google.maps.InfoWindow();
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'latLng': streetViewLoc}, function(results, status) {
+    infowindow.setContent(results[1].formatted_address);
+    infowindow.open(map, marker);
+  });
 }
 
 function saveFavorite (){
