@@ -1,14 +1,14 @@
 extends ../shared/template
 
 block content
-  h3 ALL GAMES
-
+  .usermaps-container
+    h3 All User Created Maps
   each map in maps
     .user-maps
-      a(href='/maps/#{map._id}')= map.title
-      h4 Created by: #{map.user}
-      h5= map.date
+      a#map-title(href='/maps/#{map._id}')= map.title
+      a#map-user(href='/users/#{map.user}') Created by: #{map.user}
       div(class='maps', id='#{map._id}')
+      h6= map.date
       div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
 
 block scripts

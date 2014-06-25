@@ -232,7 +232,7 @@
 
     $('.distance').text(`${dist} miles from actual location`);
     $('.roundPoints').text(`${roundPoints} points this round`);
-    $('.gamePoints').text(`${totalPoints} out of 500 possible`);
+    $('.gamePoints').text(`${totalPoints} points`);
 
     var percentage = (totalPoints / 500) * 100;
     $('.progress-bar.progress-bar-warning').css('width', `${percentage}%`);

@@ -5,6 +5,7 @@ var UserMap = traceur.require(__dirname + '/../models/map.js');
 
 exports.index = (req, res)=>{
   UserMap.findAll(maps=>{
+    console.log(maps.user);
     res.render('maps/index', {title: 'Make a new game', maps:maps});
   });
 };
