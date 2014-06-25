@@ -10,8 +10,7 @@
     $('body').on('click', '.deleteMap', deleteMap);
     $('#my-games').hide();
     $('#my-maps').hide();
-    $('#favsMap').hide();
-
+    showFavs();
     $('#revealGames').click(showGames);
     $('#revealFavs').click(showFavs);
     $('#revealMaps').click(showMyMaps);
@@ -25,8 +24,13 @@ function showMyMaps() {
   $('#pan').hide();
   $('#favsMap').hide();
   $('#my-maps').show();
-  showUserMaps();
 
+  $('#revealMaps').addClass('current-tab');
+
+  $('#revealFavs').removeClass('current-tab');
+  $('#revealGames').removeClass('current-tab');
+
+  showUserMaps();
 }
 
 function showFavs(){
@@ -34,6 +38,12 @@ function showFavs(){
   $('#my-maps').hide();
   $('#pan').show();
   $('#favsMap').show();
+
+  $('#revealFavs').addClass('current-tab');
+
+  $('#revealGames').removeClass('current-tab');
+  $('#revealMaps').removeClass('current-tab');
+
   showFaveLocs();
 }
 
@@ -42,9 +52,16 @@ function showGames(){
   $('#pan').hide();
   $('#my-maps').hide();
   $('#my-games').show();
+
+  $('#revealGames').addClass('current-tab');
+
+  $('#revealMaps').removeClass('current-tab');
+  $('#revealFavs').removeClass('current-tab');
   showMaps();
 
 }
+
+
 
 function deleteGame(){
   var gameId = $(this).siblings('.leader-maps').attr('id');

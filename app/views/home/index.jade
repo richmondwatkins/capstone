@@ -20,12 +20,13 @@ html
     //- |fjs.parentNode.insertBefore(js, fjs);
     //- |}(document, 'script', 'facebook-jssdk'));</script>
     //- .fb-share-button(data-href='lms.richmondwatkins.com', data-type='button_count')
-  .nav
-    img#logo(src='/img/geoexplorer.png')
+  .header
+    h1#title World Explorer
+      img#logo(src='/img/welogo2.png')
   .nav
     if(user)
       form#logout(action='/logout', method='POST')
-        button#logout Logout
+        button.btn.btn-warning.btn-xs#logout Logout
 
     #home-nav
       if(user)
@@ -59,7 +60,7 @@ html
             form.form-inline#login-home(action='/home/login', method='POST')
               input.form-control(type='email', name='email', placeHolder='Email')
               input.form-control(type='password', name='password', placeHolder='Password')
-              buttonbtn.btn.btn-primary.btn-sm#submit-login Login
+              button.btn.btn-primary.btn-sm#submit-login Login
       .nav
         if(!user)
           a#show-registration(href='#')

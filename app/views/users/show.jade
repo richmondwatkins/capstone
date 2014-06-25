@@ -1,11 +1,14 @@
 extends ../shared/template
 
 block content
-  h3= owner.username
-  img(src= '#{owner.explorer}')
-  a.profile-links#revealFavs(href='#')  Favorite Locations
-  a.profile-links#revealGames(href='#') Saved Games
-  a.profile-links#revealMaps(href='#') Games / Maps
+  #profile-container
+    #profile-header
+      h3= owner.username
+      img.img-circle(src= '#{owner.explorer}')
+    #profile-menu
+      a.glyphicon.glyphicon-heart.profile-links#revealFavs(href='#')
+      a.glyphicon.glyphicon-save.profile-links#revealGames(href='#')
+      a.glyphicon.glyphicon-picture.profile-links#revealMaps(href='#') 
 
   #owner(data-id= owner._id)
   #my-games

@@ -22,12 +22,12 @@ html
     //- .fb-share-button(data-href='lms.richmondwatkins.com', data-type='button_count')
     if(user)
       form#logout(action='/logout', method='POST')
-        button#logout Logout
+        button.btn.btn-warning.btn-xs#logout Logout
 
     #template-nav
-      if(user)
-        h3= user.email
-
+      //- if(user)
+      //-   h3= user.email
+      h4 World Explorer
       a(href='/')
         span.glyphicon.glyphicon-home
         | Home
@@ -101,6 +101,7 @@ html
                 input.radio(type='radio', name='explorer', value='/img/marcopolo.jpg')
               .input
                 button#submit-registration Register
+
 
     block content
 
