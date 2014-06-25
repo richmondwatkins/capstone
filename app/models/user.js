@@ -7,6 +7,7 @@ var _ = require('lodash');
 
 class User{
   static create(obj, fn){
+    console.log(obj);
     userCollection.findOne({email:obj.email, username:obj.username}, (e,u)=>{
       if(!u){
         var user = new User();
@@ -14,6 +15,7 @@ class User{
         user.email = obj.email;
         user.username = obj.username;
         user.password = bcrypt.hashSync(obj.password, 8);
+        user.explorer = obj.explorer;
         user.faveLocs = [];
         userCollection.save(user, ()=>fn(user));
       }else{

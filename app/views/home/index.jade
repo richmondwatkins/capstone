@@ -66,10 +66,30 @@ html
             span.glyphicon.glyphicon-refresh
             | Register
             form#register-home(action='/home/register', method='POST')
-              input(type='email', name='email', placeHolder='Email')
-              input(type='text', name='username', placeHolder='Username')
-              input(type='password', name='password', placeHolder='Password')
-              button#submit-registration Register
+              .inputs
+                input(type='email', name='email', placeHolder='Email')
+                input(type='text', name='username', placeHolder='Username')
+                input(type='password', name='password', placeHolder='Password')
+              .explorer
+                img(src='/img/amundsen.jpg')
+                input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+              .explorer
+                img(src='/img/columbus.jpg')
+                input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+              .explorer
+                img(src='/img/cortes.jpg' )
+                input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+              .explorer
+                img(src='/img/darwin.jpg')
+                input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+              .explorer
+                img(src='/img/magellan.jpg')
+                input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+              .explorer
+                img(src='/img/marcopolo.jpg')
+                input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+              .input
+                button#submit-registration Register
 
     block content
 
