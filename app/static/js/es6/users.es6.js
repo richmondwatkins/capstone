@@ -21,7 +21,6 @@
   }
 
   function showLogin(){
-    alert('asdf');
     $('#login-form').slideToggle();
   }
 

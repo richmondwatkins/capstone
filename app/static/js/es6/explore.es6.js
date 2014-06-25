@@ -74,9 +74,7 @@ function initialize() {
       animation: google.maps.Animation.DROP
     });
 
-  google.maps.event.addListener(marker, 'click', function(event) {
     infoWindow();
-  });
 }
 
 
