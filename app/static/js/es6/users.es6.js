@@ -12,7 +12,7 @@
     $('#register-form').hide();
     $('#login-form').hide();
 
-    $('#show-login').click(showLogin);
+    $('button#show-login').click(showLogin);
     $('#show-register').click(showRegister);
 
     $('body').on('click', '#login', loginUser);
@@ -21,6 +21,7 @@
   }
 
   function showLogin(){
+    alert('asdf');
     $('#login-form').slideToggle();
   }
 
@@ -48,6 +49,7 @@
       console.log(res);
       // $('#user').empty().append(res);
       $('#user').empty().append(res);
+      $('#paragraph').empty();
       $('.input').val('');
     });
 
@@ -59,7 +61,7 @@
   function hideForms(){
     $('#register-form').hide();
     $('#login-form').hide();
-    $('#show-login').hide();
+    $('button#show-login').hide();
     $('#show-register').hide();
 
   }

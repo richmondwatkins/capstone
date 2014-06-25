@@ -18,29 +18,57 @@ block content
   #game-over
     #map-game
     #user
-      .results
-        if(user)
-          h4= user.email
-          #username(data-username= '#{user.username}' )
-          button#save-game Save Game
-        if(!user)
-          p If you would like to save this game, login or register
-          button#show-login Login
-          button#show-register Register
-          form#login-form
-            input.input(type='email', name='email', placeHolder='Email')
-            input.input(type='password', name='password', placeHolder='Password')
-            button#login Submit
+    .results
+      if(user)
+        h4= user.email
+        #username(data-username= '#{user.username}' )
+        button#save-game Save Game
+      if(!user)
+        p#paragraph If you would like to save this game, login or register
+        button#show-login Login
+        button#show-register Register
+        form#login-form
+          input.input(type='email', name='email', placeHolder='Email')
+          input.input(type='password', name='password', placeHolder='Password')
+          button#login Submit
+        #registration-form
           form#register-form
-            input.input(type='email', name='email', placeHolder='Email')
-            input.input(type='text', name='username', placeHolder='Username')
-            input.input(type='password', name='password', placeHolder='Password')
-            button#register Submit
-        .distance
-        .roundPoints
-        .progress.progress-striped
-          .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
-          .gamePoints
+            .inputs
+              input(type='email', name='email', placeHolder='Email')
+              input(type='text', name='username', placeHolder='Username')
+              input(type='password', name='password', placeHolder='Password')
+            .explorer
+              img(src='/img/amundsen.jpg')
+              p Roald Amundsen
+              input.radio(type='radio', name='explorer', value='/img/amundsen.jpg')
+            .explorer
+              img(src='/img/columbus.jpg')
+              p Christopher Columbus
+              input.radio(type='radio', name='explorer', value='/img/columbus.jpg')
+            .explorer
+              img(src='/img/cortes.jpg' )
+              p Hernán Cortés
+              input.radio(type='radio', name='explorer', value='/img/cortes.jpg')
+            .explorer
+              img(src='/img/darwin.jpg')
+              p Charles Darwin
+              input.radio(type='radio', name='explorer', value='/img/darwin.jpg')
+            .explorer
+              img(src='/img/magellan.jpg')
+              p Ferdinand Magellan
+              input.radio(type='radio', name='explorer', value='/img/magellan.jpg')
+            .explorer
+              img(src='/img/marcopolo.jpg')
+              p Marco Polo
+              input.radio(type='radio', name='explorer', value='/img/marcopolo.jpg')
+            .input
+            button#register Register
+
+      .distance
+      .roundPoints
+      .progress.progress-striped
+        .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
+        .gamePoints
 
 
 
