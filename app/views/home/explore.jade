@@ -1,8 +1,12 @@
 extends ../shared/template
 
 block content
+  button#explore Explore!
+  #username(data-username= '#{user.username}' )
+
   #pano
 
+    img(src='/img/loader.gif')#loader
 
 
 

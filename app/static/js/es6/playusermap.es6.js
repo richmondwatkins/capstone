@@ -282,6 +282,8 @@
     var streetView = new google.maps.StreetViewService();
     streetView.getPanoramaByLocation(latLng, 1000, response=>{
       if(response !== null){
+        $('#globe').removeClass('loading');
+
         streetViewLoc = response.location.latLng;
         // getCoords(response.location.latLng);
        var panoramaOptions = {
@@ -306,7 +308,8 @@
         }
 
      } else{
-      randomStreetView();
+         $('#globe').addClass('loading');
+         randomStreetView();
      }
    });
   }

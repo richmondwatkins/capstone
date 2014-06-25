@@ -263,7 +263,10 @@
     var latLng = new google.maps.LatLng(coords[0], coords[1]);
     var streetView = new google.maps.StreetViewService();
     streetView.getPanoramaByLocation(latLng, 1000, response=>{
+      console.log(response);
       if(response !== null){
+        $('#globe').removeClass('loading');
+
         streetViewLoc = response.location.latLng;
         // getCoords(response.location.latLng);
        var panoramaOptions = {
@@ -288,6 +291,7 @@
         }
 
      } else{
+      $('#globe').addClass('loading');
       randomStreetView();
      }
    });
