@@ -5,8 +5,10 @@ block content
   #all-games
     each game in games
       .games
-        a(href='/users/#{game.user}')= game.user
-        h3.game= game.score
+        #place
+        a.user(href='/users/#{game.user}')
+          h2.user= user.username
+        h3.game #{game.score} Points
         h5.date= game.date
         div(class='leader-maps', id='#{game._id}')
         each coord in game.coords

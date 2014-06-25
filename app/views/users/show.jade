@@ -6,7 +6,7 @@ block content
   #owner(data-id= owner._id)
   each game in games
     .games
-      h3.game= game.score
+      h3.game #{game.score} Points
       a(href='/owners/#{game.owner}')= game.owner
       div(class='leader-maps', id='#{game._id}')
       each coord in game.coords

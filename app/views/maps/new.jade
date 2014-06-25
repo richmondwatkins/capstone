@@ -1,11 +1,12 @@
 extends ../shared/template
 
 block content
-  input#map-title(type='text', placeholder='Map Name')
-  button#save-map Save Map
+  #create-container
+    input#map-title(type='text', placeholder='Map Name')
+    button#save-map Save Map
   #new-map
 
-  #user(data-username='#{user.username}', data-userId= '#{user._id}')
+    #user(data-username='#{user.username}', data-userId= '#{user._id}')
 
 block scripts
   script(src='/js/es6/compiled/createmaps.js')

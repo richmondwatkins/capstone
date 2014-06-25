@@ -14,6 +14,12 @@
   function init(){
     initialize();
     $('#save-map').click(saveMap);
+    $('#save-map').hide();
+    $('#map-title').click(showSave);
+  }
+
+  function showSave(){
+    $('#save-map').fadeIn();
   }
 
 

@@ -8,8 +8,19 @@
   function init(){
     showMaps();
     $('body').on('click', '.deleteGame', deleteGame);
-
+    // place();
   }
+
+// function place(){
+//   var maps = $('.leader-maps').toArray();
+//   var placeNum = 0;
+//   maps.forEach(i=>{
+//     placeNum += 1;
+//     $('#place').text(place);
+//
+//   });
+//
+// }
 
 function deleteGame(){
   var gameId = $(this).siblings('.leader-maps').attr('id');
