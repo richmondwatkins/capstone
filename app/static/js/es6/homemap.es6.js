@@ -74,7 +74,7 @@ function infoWindows(favCoords,coords, user){
     var content = `<div>
                   <h3>${results[1].formatted_address}</h3>
                   <div id='pan'></div>
-                  <a href=/users/${user}>Found By: ${user}</a>
+                  <a href=/users/${user}>Found by: ${user}</a>
                   </div>`;
       infowindow.setContent(content);
       infowindow.open(favLocMap, favCoords);
