@@ -1,7 +1,9 @@
 extends ../shared/template
 
 block content
-  h3= map.title
+  .leaderboard-container
+    h3= map.title
+    h4 Created by: #{map.user}
   #globe
   div(class='map-settings',data-ne='#{map.ne}',  data-center='#{map.center}', data-zoom='#{map.zoom}', data-sw='#{map.sw}')
   #pano
@@ -10,7 +12,7 @@ block content
     #map-modal
     .results
       .distance
-    
+
 
   #game-over
     #map-game

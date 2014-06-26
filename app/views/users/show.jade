@@ -8,7 +8,7 @@ block content
     #profile-menu
       a.glyphicon.glyphicon-heart.profile-links#revealFavs(href='#')
       a.glyphicon.glyphicon-save.profile-links#revealGames(href='#')
-      a.glyphicon.glyphicon-picture.profile-links#revealMaps(href='#') 
+      a.glyphicon.glyphicon-picture.profile-links#revealMaps(href='#')
 
   #owner(data-id= owner._id)
   #my-games
@@ -19,8 +19,9 @@ block content
         div(class='leader-maps', id='#{game._id}')
         each coord in game.coords
           div(class='coords', data-guess='#{coord.guessLoc}', data-actual='#{coord.actualLoc}')
-        if (user.isOwner(game.userId))
-          button.deleteGame X
+        if(user)
+          if (user.isOwner(game.userId))
+            button.deleteGame X
 
     each location in owner.faveLocs
       div(class='faveLocs', data-coords='#{location}')
@@ -31,7 +32,8 @@ block content
         a(href='/maps/#{map._id}')= map.title
         div(class='maps', id='#{map._id}')
         div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
-        if (user.isOwner(map.userId))
+      if(user)
+        if(user.isOwner(map.userId))
           button.deleteMap X
 
 
