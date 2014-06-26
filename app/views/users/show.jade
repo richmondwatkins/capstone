@@ -29,7 +29,7 @@ block content
   #my-maps
     each map in maps
       .my-maps
-        a(href='/maps/#{map._id}')= map.title
+        a#map-title(href='/maps/#{map._id}')= map.title
         div(class='maps', id='#{map._id}')
         div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
         if(user)

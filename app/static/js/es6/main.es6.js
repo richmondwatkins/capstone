@@ -52,7 +52,6 @@
 
   function calcDist(e){
     var distance = (google.maps.geometry.spherical.computeDistanceBetween(marker.position, streetViewLoc)).toFixed(2);
-    console.log(distance);
     var coordsArray = [];
     coordsArray.push(marker.position, streetViewLoc);
 

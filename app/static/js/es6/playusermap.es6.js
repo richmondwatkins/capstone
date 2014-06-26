@@ -61,18 +61,17 @@
 
   //---finds coords for marker and street view
 
-  function calcDist(e){
-    var distance = (google.maps.geometry.spherical.computeDistanceBetween(marker.position, streetViewLoc)).toFixed(2);
-    var coordsArray = [];
-    coordsArray.push(marker.position, streetViewLoc);
+function calcDist(e){
+  var distance = (google.maps.geometry.spherical.computeDistanceBetween(marker.position, streetViewLoc)).toFixed(2);
+  var coordsArray = [];
+  coordsArray.push(marker.position, streetViewLoc);
 
-    distance = (distance / 5280).toFixed(2);
+  distance = (distance / 1609.34).toFixed(2);
 
-    roundResults(coordsArray, distance);
+  roundResults(coordsArray, distance);
 
-    e.preventDefault();
-  }
-
+  e.preventDefault();
+}
 //----keeps track of rounds shows results on map and ends game when when rounds hit specified amount
 
   var round = 0;
