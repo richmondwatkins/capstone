@@ -261,10 +261,13 @@
 
 //---- The function name says it all ------
 
+//$$$$ SAILORRRRRR
   function randomStreetView(){
     var geocoder = new google.maps.Geocoder();
-    var coords = chance.coordinates().split(',');
-    var latLng = new google.maps.LatLng(coords[0], coords[1]);
+    var lat = chance.latitude();
+    var long = chance.longitude();
+
+    var latLng = new google.maps.LatLng(lat, long);
     var streetView = new google.maps.StreetViewService();
     streetView.getPanoramaByLocation(latLng, 1000, response=>{
       console.log(response);

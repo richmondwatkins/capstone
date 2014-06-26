@@ -32,9 +32,9 @@ block content
         a(href='/maps/#{map._id}')= map.title
         div(class='maps', id='#{map._id}')
         div(class='map-settings', data-center='#{map.center}', data-zoom='#{map.zoom}')
-      if(user)
-        if(user.isOwner(map.userId))
-          button.deleteMap X
+        if(user)
+          if(user.isOwner(map.userId))
+            button.deleteMap X
 
 
   #favsMap
