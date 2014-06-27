@@ -104,17 +104,17 @@
 
       addAllMarkers(actualMarker, coords[1], actualIcon, modalMap);
 
-      drawLine(coords, modalMap);
+      drawLine(coords, modalMap, '#FF0000');
       calcPoints(distance);
   }
 
   //draws line between guess and actual
 
-  function drawLine(points, selectedMap){
+  function drawLine(points, selectedMap, color){
    var flightPath = new google.maps.Polyline({
     path: points,
     geodesic: false,
-    strokeColor: '#FF0000',
+    strokeColor: color,
     strokeOpacity: 1.0,
     strokeWeight: 2
   });
@@ -144,10 +144,16 @@
 
       var gameMap = new google.maps.Map(document.getElementById('map-game'), mapOptions);
 
-      locations.forEach(l=>{
+      locations.forEach((l, i)=>{
+
         addAllMarkers(gameMarker, l.coords[0], guessIcon, gameMap);
         addAllMarkers(actualMarker, l.coords[1], actualIcon, gameMap);
-         drawLine(l.coords, gameMap);
+         if(i === 4){
+           console.log('in here');
+           drawLine(l.coords, gameMap, '#8b8a8a');
+         }else{
+           drawLine(l.coords, gameMap, '#FF0000');
+         }
        });
   }
 
